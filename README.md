@@ -274,7 +274,7 @@
           <li>哪些應用可以轉成 B2B 社群內容或白皮書觀點？</li>
         </ul>
 
-        <div class="footer-note">這頁已把地圖直接嵌進去，不用再左右切兩個檔案看。</div>
+        <div class="footer-note">明天現場直接照這頁走就好，迷路率大幅下降。</div>
       </article>
     </section>
   </main>
