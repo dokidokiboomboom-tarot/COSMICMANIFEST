@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COMPUTEX 明天下午攻略｜含地圖版</title>
+  <title>COMPUTEX 明天下午攻略｜攤位訪談版</title>
   <style>
     :root {
       --bg: #fff8f2;
@@ -174,6 +174,231 @@
       color: var(--muted);
       font-size: 14px;
     }
+
+    .wide-card {
+      margin-top: 20px;
+      background: var(--card);
+      border: 1px solid #f2e2d5;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .theme-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .theme-kicker {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: #315e9a;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .theme-note {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 680px;
+    }
+    .source-mini {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .source-card {
+      background: #fffaf6;
+      border: 1px solid #f6e2d3;
+      border-radius: 16px;
+      padding: 13px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .source-card b {
+      display: block;
+      color: var(--ink);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .route.compact .step {
+      grid-template-columns: 44px 1fr;
+    }
+
+    .booth-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .booth-card {
+      background: #fffaf6;
+      border: 1px solid #f6e2d3;
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .booth-card b {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .booth-meta {
+      color: #b15c38;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .booth-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .q-card {
+      background: #ffffff;
+      border: 1px solid #f0d7c5;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.04);
+    }
+    .q-card b {
+      display: block;
+      color: #222;
+      margin-bottom: 8px;
+    }
+    .q-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .q-card li { margin-bottom: 6px; }
+    .warning-box {
+      background: #fff3ef;
+      border: 1px solid #ffd4c6;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+      color: #4a3a30;
+    }
+    .priority {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: #315e9a;
+      font-weight: 800;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    @media (max-width: 860px) {
+      .booth-grid, .question-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .theme-head {
+        display: block;
+      }
+      .source-mini {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    .booth-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .booth-card {
+      background: #fffaf6;
+      border: 1px solid #f6e2d3;
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .booth-card b {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .booth-meta {
+      color: #b15c38;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .booth-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .q-card {
+      background: #ffffff;
+      border: 1px solid #f0d7c5;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.04);
+    }
+    .q-card b {
+      display: block;
+      color: #222;
+      margin-bottom: 8px;
+    }
+    .q-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .q-card li { margin-bottom: 6px; }
+    .warning-box {
+      background: #fff3ef;
+      border: 1px solid #ffd4c6;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+      color: #4a3a30;
+    }
+    .priority {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: #315e9a;
+      font-weight: 800;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    @media (max-width: 860px) {
+      .booth-grid, .question-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 860px) {
       .grid {
         grid-template-columns: 1fr;
@@ -277,6 +502,186 @@
         <div class="footer-note">明天現場直接照這頁走就好，迷路率大幅下降。</div>
       </article>
     </section>
+
+    <section class="wide-card">
+      <div class="theme-head">
+        <div>
+          <span class="theme-kicker">第二條主題路線</span>
+          <h2>主權 AI × 邊緣應用 × 新創</h2>
+          <p class="theme-note">主題鎖定：主權 AI、Edge AI、AI Agent、機器人／智慧醫療。這條路線全程留在南港 2 館，會比原本更「技術趨勢採集」，適合回去寫產業觀察、白皮書觀點、主管週報。</p>
+        </div>
+      </div>
+
+      <div class="route compact">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <b>14:00 先上 4F S區｜InnoVEX 新創雷達</b><br>
+            優先找 AI Agent、DigitalHealth、Robotics、EdgeAI、AI Platform 相關攤位。先看「它到底幫誰省時間、降風險、做決策」。
+            <div class="tag">S區</div><div class="tag">AI Agent</div><div class="tag">智慧醫療</div><div class="tag">新創</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <b>14:35 續逛 4F S區｜主權 AI 與 AI 基礎建設</b><br>
+            看資料是否能留在本地、模型是否可被企業自行管理、資安與治理如何包進方案。這是 B2B 內容最有價值的金礦。
+            <div class="tag">主權AI</div><div class="tag">AI基礎建設</div><div class="tag">資料治理</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <b>15:10 轉 4F R區｜Edge AI / 地端部署</b><br>
+            看 AI 運算及系統解決方案，重點放在本地推論、低延遲、資料不外流、影像辨識、工業電腦、資安與 AI Service。
+            <div class="tag">R區</div><div class="tag">Edge AI</div><div class="tag">地端AI</div><div class="tag">AI Service</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <b>15:55 下到 1F P區｜邊緣應用落地場景</b><br>
+            把 Edge AI 從規格翻成商業場景：POS、智慧零售、會員經營、感測設備、人機互動。這段最適合看「技術怎麼進到真實營運現場」。
+            <div class="tag">P區</div><div class="tag">智慧零售</div><div class="tag">場景落地</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <b>16:35 南港館內回補｜S區或P區二選一</b><br>
+            明天不跨館。想補新創、AI Agent、智慧醫療就回 4F S區；想補落地場景、智慧零售、會員經營就留在 1F P區。最後 10 分鐘整理照片與可寫成貼文的觀察。
+            <div class="tag">南港限定</div><div class="tag">S區回補</div><div class="tag">P區深挖</div><div class="tag">不跨館</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-title">這條路線要問的 4 個問題</div>
+      <div class="source-mini">
+        <div class="source-card"><b>主權 AI</b>資料、模型、算力是不是能被企業或國家自己掌控？</div>
+        <div class="source-card"><b>Edge AI</b>為什麼它需要在現場跑，而不是丟雲端？</div>
+        <div class="source-card"><b>AI Agent</b>它是聊天工具，還是真的能自動完成流程？</div>
+        <div class="source-card"><b>智慧醫療／機器人</b>它解決的是照護、人力、精準度，還是安全問題？</div>
+      </div>
+    </section>
+
+
+    <section class="wide-card">
+      <div class="theme-head">
+        <div>
+          <span class="theme-kicker">現場訪談清單</span>
+          <h2>建議優先了解的攤位</h2>
+          <p class="theme-note">這份不是叫妳每攤都深聊，而是「看到就值得靠近 3 分鐘」的名單。重點問三件事：他們解決什麼痛點、token 到底是計費單位還是虛擬資產、能不能跟台灣經貿網形成合作或內容素材。</p>
+        </div>
+      </div>
+
+      <div class="booth-grid">
+        <div class="booth-card">
+          <div class="booth-meta">4F S區｜S0903</div>
+          <b>開端智能 ARDGE <span class="priority">主權AI／EdgeAI</span></b>
+          <p>看企業級私有 AI、地端部署、資料治理。適合問：若台灣製造業要做 On-Prem AI，導入門檻、資料安全、維運痛點是什麼？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F S區｜S1216</div>
+          <b>SiPearl <span class="priority">主權AI／HPC</span></b>
+          <p>看主權超級電腦、AI 與資料中心。適合問：主權 AI 對企業來說是政策議題、資安議題，還是供應鏈自主議題？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F R區｜R0113</div>
+          <b>數位無限 INFINITIX <span class="priority">TaaS／算力營運</span></b>
+          <p>看 AI-Stack、GPU 調度、GPU-as-a-Service、Model-as-a-Service、Token-as-a-Service。適合問 token 是「AI 使用量計費」還是「可交易資產」。</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F R區｜R0233a</div>
+          <b>艾瑪斯 AMAX <span class="priority">AI工廠／Token應用</span></b>
+          <p>看 AI 運算叢集、液冷資料中心、AI 與 Token 應用平台。適合問：企業若想把 AI 服務商品化，如何計費、監控與維運？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F R區｜R0502</div>
+          <b>圖睿科技 Graid <span class="priority">每token成本</span></b>
+          <p>看 AI 推論、KV Cache、GPU 加速儲存。這裡的 token 比較像 AI 推論成本單位，適合問：怎麼降低每 token 成本與資料瓶頸？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F R區｜R0923</div>
+          <b>臺灣發展軟體科技 Skymizer <span class="priority">EdgeAI平台</span></b>
+          <p>看 AI Platform、EdgeAI。適合問：邊緣 AI 從 Demo 走到商用，最常卡在哪裡？硬體、模型、部署還是維運？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F S區｜S0725</div>
+          <b>能采 HyperSols <span class="priority">智慧醫療／Robotics</span></b>
+          <p>看 DigitalHealth、EdgeAI、Robotics、VR 等應用。適合問：醫療或沉浸式應用要走向海外，需要哪些通路、認證或案例包裝？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">4F S區｜S0712a / S0323a</div>
+          <b>久浪智醫／宇知人工智慧 <span class="priority">智慧醫療</span></b>
+          <p>這兩個都可列入智慧醫療觀察點。適合問：目前最需要海外曝光、臨床合作、經銷合作，還是 B2B 買主媒合？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">1F P區｜P0114 / P1313</div>
+          <b>威強電 IEI／瑞傳 Portwell <span class="priority">EdgeAI落地</span></b>
+          <p>看工業電腦、EdgeAI、DigitalHealth、智慧製造。適合問：他們的海外買主怎麼找產品？是否需要更好的產品頁、案例頁或買主媒合？</p>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-meta">1F P區｜P0413</div>
+          <b>智愛科技 Premio <span class="priority">AMR／Robotics</span></b>
+          <p>看 AMR、EdgeAI、IIoT、Robotics。適合問：機器人與邊緣 AI 的採購決策鏈是誰？系統整合商、品牌商、代理商還是終端企業？</p>
+        </div>
+      </div>
+
+      <div class="mini-title">看到 Token 相關攤位，先問清楚</div>
+      <div class="warning-box">
+        <b>重點：不要一聽到 token 就以為是發幣。</b><br>
+        在 COMPUTEX，token 可能是三種東西：① AI 推論成本單位，例如每 token 成本；② AI 服務計費單位，例如 TaaS；③ 真的涉及虛擬資產／可交易代幣。第三種才會碰到比較嚴肅的法規、金流、KYC/AML 與資訊揭露問題。
+      </div>
+
+      <div class="question-grid">
+        <div class="q-card">
+          <b>Token 風險問題</b>
+          <ul>
+            <li>你們說的 token 是計費單位、使用點數，還是可交易資產？</li>
+            <li>若未來發 token，是否涉及白皮書、上下架審查、客戶資產保管？</li>
+            <li>會不會碰到 KYC/AML、跨境金流、會計認列與資安責任？</li>
+          </ul>
+        </div>
+
+        <div class="q-card">
+          <b>台灣經貿網合作問題</b>
+          <ul>
+            <li>你們現在有沒有英文產品頁、海外案例、買主詢盤入口？</li>
+            <li>是否需要 B2B 曝光、國際買主媒合、線上型錄或多語內容？</li>
+            <li>若要做海外拓銷，最想接觸哪類買主：製造業、醫療、SI、通路商？</li>
+          </ul>
+        </div>
+
+        <div class="q-card">
+          <b>行銷素材問題</b>
+          <ul>
+            <li>請用一句話說：你們幫企業解決什麼痛點？</li>
+            <li>有沒有成功案例、Demo 影片、Before/After 數據？</li>
+            <li>這個方案如果讓非科技主管看，第一句應該怎麼講？</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-title">妳的合作判斷公式</div>
+      <div class="box">
+        <b>適合台灣經貿網合作：</b>有台灣公司身份／產品可上架／需要海外買主／有英文資料／可被包成產業解決方案。<br>
+        <b>暫時不適合：</b>純技術展示、尚無商用產品、法規風險太高、token 性質說不清、沒有明確目標買主。
+      </div>
+    </section>
+
   </main>
 </body>
 </html>
