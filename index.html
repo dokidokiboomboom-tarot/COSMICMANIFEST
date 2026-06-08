@@ -1,1 +1,2236 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星願顯化日記系統 - 大衛霍金斯意識能量對焦空間</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cosmic: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            800: '#1e1b4b',
+                            900: '#0f0e26',
+                            950: '#070514',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #0d0a21 0%, #04030a 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* Dynamic Sacred Geometry Astrolabe Spin Animations */
+        @keyframes ring-spin-clockwise {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.02); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes ring-spin-counter {
+            0% { transform: rotate(360deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.97); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        .outer-ring-glow {
+            animation: ring-spin-clockwise 25s linear infinite;
+        }
+        .inner-ring-glow {
+            animation: ring-spin-counter 15s linear infinite;
+        }
 
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(11, 8, 28, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.6);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.35);
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-2px);
+        }
+
+        /* Cosmic Canvas */
+        #cosmic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Custom Animations */
+        @keyframes cosmic-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.75; filter: blur(4px); }
+            50% { transform: scale(1.08); opacity: 0.95; filter: blur(0px); }
+        }
+        .breathing-orb {
+            animation: cosmic-pulse 7s ease-in-out infinite;
+        }
+
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spin-slow 35s linear infinite;
+        }
+
+        /* Burn Dissolve Animation */
+        .burning-text {
+            color: transparent !important;
+            text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+            transition: all 1.5s ease-out;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(5, 4, 14, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.55);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen pb-16">
+
+    <!-- Interactive Canvas Particle Field -->
+    <canvas id="cosmic-canvas"></canvas>
+
+    <!-- Top Navigation and Brand Header -->
+    <header class="relative z-10 max-w-7xl mx-auto px-4 pt-6 pb-2">
+        <div class="glass-panel rounded-2xl px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('dashboard')">
+                <div class="w-11 h-11 bg-gradient-to-tr from-indigo-600 via-violet-600 to-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-violet-500/20 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg relative z-10"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif text-xl md:text-2xl font-bold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-violet-200 via-amber-200 to-indigo-300">
+                        COSMIC MANIFEST
+                    </h1>
+                    <p class="text-[10px] md:text-xs text-violet-300/70 tracking-wider flex items-center gap-1.5">
+                        <span>霍金斯意識能量顯化空間</span>
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-emerald-400/80">高共振對焦中</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Tab Navigation Bar -->
+            <nav class="flex flex-wrap items-center gap-1 bg-slate-950/60 p-1.5 rounded-xl border border-white/5">
+                <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-violet-200 bg-violet-600/20 border border-violet-500/20">
+                    <i class="fa-solid fa-gem text-violet-400"></i>能級儀表板
+                </button>
+                <button onclick="switchTab('journal')" id="btn-journal" class="nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-pen-fancy"></i>顯化儀式
+                </button>
+                <button onclick="switchTab('history')" id="btn-history" class="nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-book-open"></i>時光迴廊
+                </button>
+                <button onclick="switchTab('energy')" id="btn-energy" class="nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-wind"></i>神聖冥想
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 mt-6">
+        
+        <!-- SECTION 1: Dashboard -->
+        <section id="section-dashboard" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Grid: Hawkins Orb and Daily Insights -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <!-- Hawkins Energy Orb Panel -->
+                <div class="glass-panel p-6 rounded-3xl relative overflow-hidden flex flex-col items-center text-center border border-violet-500/10 shadow-[0_0_50px_-12px_rgba(139,92,246,0.3)]">
+                    <div class="absolute -right-12 -top-12 w-32 h-32 bg-violet-600/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -left-12 -bottom-12 w-32 h-32 bg-indigo-600/10 rounded-full blur-3xl"></div>
+                    
+                    <span class="text-xs font-semibold tracking-widest text-violet-400 uppercase bg-violet-500/10 px-3.5 py-1.5 rounded-full mb-2 border border-violet-500/15 flex items-center gap-2">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                        </span>
+                        當前意識能量能級
+                    </span>
+                    
+                    <!-- Hawkins Energetic Dynamic Orb (Sacred Cosmic Geometry Astrolabe) -->
+                    <div class="relative w-56 h-56 my-2 flex items-center justify-center">
+                        <!-- Multi-layer soft aura glows -->
+                        <div id="orb-glow-layer-1" class="absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-1000"></div>
+                        <div id="orb-glow-layer-2" class="absolute inset-10 rounded-full opacity-30 blur-2xl transition-all duration-1000"></div>
+                        
+                        <!-- Rotating Sacred Astrolabe Outer Rings -->
+                        <div class="absolute inset-0 border border-dashed border-white/10 rounded-full outer-ring-glow"></div>
+                        <div class="absolute inset-3 border border-dashed border-indigo-500/20 rounded-full inner-ring-glow"></div>
+                        
+                        <!-- Flying Cosmic Nodes on Astrolabe tracks -->
+                        <div class="absolute inset-0 outer-ring-glow">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_12px_#fbbf24]"></div>
+                            <div class="absolute bottom-4 left-1/6 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></div>
+                        </div>
+                        <div class="absolute inset-3 inner-ring-glow">
+                            <div class="absolute top-1/2 left-0 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-violet-400 shadow-[0_0_10px_#a78bfa]"></div>
+                        </div>
+                        
+                        <!-- Main Fluid Plasma Glass Orb Body -->
+                        <div id="orb-body" class="breathing-orb w-40 h-40 rounded-full border border-white/20 flex flex-col items-center justify-center relative z-10 transition-all duration-1000 shadow-inner overflow-hidden">
+                            <!-- Glass Curved Highlight/Reflection -->
+                            <div class="absolute top-1.5 left-5 right-1.5 h-12 bg-gradient-to-b from-white/30 to-white/0 rounded-t-full filter blur-[1px]"></div>
+                            <div class="absolute bottom-1 right-5 w-8 h-4 bg-white/5 rounded-b-full filter blur-[2px] rotate-45"></div>
+                            
+                            <span class="font-serif text-5xl font-bold text-white tracking-tighter drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]" id="display-vibe">--</span>
+                            <span class="text-[10px] text-amber-200 mt-1 font-medium tracking-widest uppercase" id="display-vibe-title">對焦校準中</span>
+                        </div>
+                    </div>
+
+                    <!-- Sleek Linear Consciousness Spectrum Bar -->
+                    <div class="w-full px-2 mt-2 mb-4">
+                        <div class="flex justify-between text-[9px] text-slate-500 mb-1.5 font-medium tracking-wider">
+                            <span>FORCE (逆流 0-200)</span>
+                            <span>POWER (順流 200-1000)</span>
+                        </div>
+                        <div class="relative w-full h-1.5 bg-slate-950/80 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                            <!-- Spectrum Base Gradient Underlay -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-rose-700/60 via-indigo-600/60 via-emerald-500/60 via-amber-400/60 to-white/70 opacity-30"></div>
+                            <!-- Filled dynamically glowing progress bar -->
+                            <div id="spectrum-fill-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-violet-600 to-indigo-500 transition-all duration-1000 rounded-full" style="width: 0%"></div>
+                            <!-- Slidable luminous pointer pin -->
+                            <div id="spectrum-indicator-pin" class="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white border border-slate-950 rounded-full shadow-[0_0_12px_rgba(255,255,255,0.9)] transition-all duration-1000" style="left: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Hawkins Energy Description -->
+                    <div class="mb-4">
+                        <span id="vibe-status-tag" class="px-3 py-1 rounded-full text-xs font-medium border"></span>
+                        <p id="vibe-status-desc" class="text-xs text-slate-400 mt-3.5 px-2 leading-relaxed min-h-[3.5rem]"></p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 w-full mt-2 border-t border-white/5 pt-4">
+                        <div class="glass-card rounded-xl p-3 text-center">
+                            <span class="text-[10px] text-slate-400 block mb-1">今日美好感恩累積</span>
+                            <span class="text-base font-bold text-violet-300" id="stat-gratitude">0 件</span>
+                        </div>
+                        <div class="glass-card rounded-xl p-3 text-center">
+                            <span class="text-[10px] text-slate-400 block mb-1">已顯化成真訂單</span>
+                            <span class="text-base font-bold text-amber-300" id="stat-fulfilled">0 件</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Cosmic Wisdom Quote -->
+                <div class="glass-panel p-6 rounded-3xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2 text-amber-300">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <span class="text-xs tracking-wider uppercase font-semibold">今日宇宙絮語</span>
+                        </div>
+                        <button onclick="openHawkinsGuide()" class="text-[10px] text-violet-300/80 hover:text-violet-200 bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/15 transition-all">
+                            <i class="fa-solid fa-circle-info"></i> 能級對照表
+                        </button>
+                    </div>
+                    <p class="text-sm text-slate-200 leading-relaxed font-light min-h-[4.5rem]" id="cosmic-quote">
+                        「當你真心渴望某樣東西時，整個宇宙都會聯合起來幫助你完成。」—《秘密》
+                    </p>
+                    <div class="mt-4 flex justify-between items-center border-t border-white/5 pt-3">
+                        <span class="text-[10px] text-violet-300/60 font-medium" id="cosmic-author">—— 吸引力法則</span>
+                        <button onclick="generateCosmicQuote()" class="text-xs text-amber-300/80 hover:text-amber-300 flex items-center gap-1 transition-all">
+                            <i class="fa-solid fa-rotate"></i> 換一劑心靈配方
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Grid: Manifestation Orders Board and Overviews -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                <!-- Energetic Focus Zone -->
+                <div class="glass-panel p-6 rounded-3xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                            <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                                <span class="w-1.5 h-4 bg-violet-500 rounded-full"></span> 能量對焦看板
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-1">今天，你想對宇宙發送什麼樣的意識能級訊號？</p>
+                        </div>
+                        <button onclick="switchTab('journal')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-lg shadow-violet-600/20 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-feather"></i> 進入顯化儀式 / 下訂單
+                        </button>
+                    </div>
+
+                    <!-- Daily Core Pillars Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
+                        <!-- Focused Intention -->
+                        <div class="glass-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px]">
+                            <div>
+                                <span class="text-[10px] text-violet-400 tracking-wider font-semibold block uppercase mb-1">今日意圖焦點</span>
+                                <p class="text-sm font-medium text-slate-100 line-clamp-2" id="dash-focus">尚未設定今日焦點</p>
+                            </div>
+                            <span class="text-[11px] text-violet-300/60 mt-2 flex items-center gap-1"><i class="fa-regular fa-compass"></i> Focus Intention</span>
+                        </div>
+                        <!-- Recent Gratitude -->
+                        <div class="glass-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px]">
+                            <div>
+                                <span class="text-[10px] text-amber-400 tracking-wider font-semibold block uppercase mb-1">最近的感恩瞬間</span>
+                                <p class="text-sm font-medium text-slate-100 line-clamp-2" id="dash-gratitude">寫下美好小事來滋養高頻狀態</p>
+                            </div>
+                            <span class="text-[11px] text-amber-300/60 mt-2 flex items-center gap-1"><i class="fa-regular fa-face-smile-beam"></i> High Vibration</span>
+                        </div>
+                        <!-- Latest Order Status -->
+                        <div class="glass-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px]">
+                            <div>
+                                <span class="text-[10px] text-emerald-400 tracking-wider font-semibold block uppercase mb-1">最新宇宙訂單</span>
+                                <p class="text-sm font-medium text-slate-100 line-clamp-2" id="dash-order">尚未向宇宙送出新訂單</p>
+                            </div>
+                            <span class="text-[11px] text-emerald-300/60 mt-2 flex items-center gap-1"><i class="fa-solid fa-paper-plane"></i> Order Status</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cosmic Manifestation Tracker -->
+                <div class="glass-panel p-6 rounded-3xl flex-1">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-amber-400 rounded-full"></span> 宇宙訂單即時追蹤
+                        </h2>
+                        <span class="text-xs text-slate-400">所有渴望都已在路上</span>
+                    </div>
+
+                    <!-- Dynamic Manifestation Card Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="order-tracker-container">
+                        <!-- Appended Dynamic Elements -->
+                    </div>
+                    
+                    <!-- Empty State for Orders -->
+                    <div class="hidden flex-col items-center justify-center py-12 text-center" id="empty-orders-view">
+                        <div class="w-16 h-16 rounded-full bg-slate-900/60 border border-white/5 flex items-center justify-center text-slate-500 mb-3 text-xl">
+                            <i class="fa-solid fa-box-open animate-pulse"></i>
+                        </div>
+                        <p class="text-sm text-slate-400">目前沒有進行中的顯化訂單</p>
+                        <p class="text-xs text-slate-500 mt-1">去「顯化儀式」向宇宙發送你的第一個願望吧！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Manifestation Ceremony Wizard -->
+        <section id="section-journal" class="tab-content hidden max-w-4xl mx-auto">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl relative">
+                
+                <!-- Ceremony Heading -->
+                <div class="text-center mb-8 relative">
+                    <span class="text-xs font-serif tracking-widest text-amber-300 uppercase block mb-1">Manifestation Ceremony</span>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">霍金斯能級顯化儀式</h2>
+                    <p class="text-xs text-slate-400 mt-2">請調整呼吸，這是一個誠實覺察、神親釋放與注入高頻誓言的轉化旅程。</p>
+                    
+                    <!-- Step Indicator Dots -->
+                    <div class="flex items-center justify-center gap-3 mt-6">
+                        <span class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-violet-600 text-white" id="step-dot-1">1</span>
+                        <div class="w-8 h-[2px] bg-white/10" id="step-line-1"></div>
+                        <span class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-slate-900 text-slate-400 border border-white/5" id="step-dot-2">2</span>
+                        <div class="w-8 h-[2px] bg-white/10" id="step-line-2"></div>
+                        <span class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-slate-900 text-slate-400 border border-white/5" id="step-dot-3">3</span>
+                        <div class="w-8 h-[2px] bg-white/10" id="step-line-3"></div>
+                        <span class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-slate-900 text-slate-400 border border-white/5" id="step-dot-4">4</span>
+                    </div>
+                </div>
+
+                <form id="manifest-form" onsubmit="event.preventDefault();">
+                    
+                    <!-- STEP 1: Awareness Section -->
+                    <div class="step-panel" id="step-panel-1">
+                        <div class="space-y-6">
+                            <div class="border-b border-white/5 pb-4">
+                                <h3 class="text-lg font-medium text-violet-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-eye text-violet-400"></i> 第一階段：深度覺察 (Awareness)
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-1">誠實地看見自己當下的心靈刻度。看見，正是提升頻率的起點。</p>
+                            </div>
+
+                            <!-- Core Hawkins States Selectors -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-2">我此時此刻的意識狀態 (可複選)：</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                    <button type="button" onclick="toggleVibeChip(this, '平靜和諧', 250)" class="vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1">
+                                        <span class="text-base">🧘‍♂️ 平靜中道</span>
+                                        <span class="text-[9px] text-slate-500">能級 250</span>
+                                    </button>
+                                    <button type="button" onclick="toggleVibeChip(this, '喜悅豐盛', 500)" class="vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1">
+                                        <span class="text-base">✨ 愛與豐盛</span>
+                                        <span class="text-[9px] text-slate-500">能級 500</span>
+                                    </button>
+                                    <button type="button" onclick="toggleVibeChip(this, '疲憊焦慮', 100)" class="vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1">
+                                        <span class="text-base">🌊 焦慮恐懼</span>
+                                        <span class="text-[9px] text-slate-500">能級 100</span>
+                                    </button>
+                                    <button type="button" onclick="toggleVibeChip(this, '迷茫抗拒', 50)" class="vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1">
+                                        <span class="text-base">🌪️ 冷漠抗拒</span>
+                                        <span class="text-[9px] text-slate-500">能級 50</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Self Reflection Text area -->
+                            <div>
+                                <label for="awareness-input" class="block text-xs font-medium text-slate-300 mb-2">覺察日記 / 我注意到大腦此時的雜訊與真實感受：</label>
+                                <textarea id="awareness-input" rows="4" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl p-4 text-sm text-slate-200 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder-slate-500" placeholder="例如：我發現自己今天對於進度有些浮躁，頭腦一直在喋喋不休地計較得失（能級150的慾望與傲慢）。我溫柔地看見這個狀態，不再批判，允許自己在此時全然放鬆..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Sacred Release Section -->
+                    <div class="step-panel hidden" id="step-panel-2">
+                        <div class="space-y-6">
+                            <div class="border-b border-white/5 pb-4">
+                                <h3 class="text-lg font-medium text-rose-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-fire text-rose-400"></i> 第二階段：神聖釋放 (Release)
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-1">霍金斯釋放法：將阻礙你突破 200 能級的限制性信念寫在下方，並啟動神聖火焰將其化為光子塵埃。</p>
+                            </div>
+
+                            <!-- Interactive Burning Element -->
+                            <div class="relative">
+                                <label for="release-input" class="block text-xs font-medium text-slate-300 mb-2">將你想徹底釋放並溶解的低能級信念（恐懼、不配得感、控制執念）寫在下方：</label>
+                                <div id="release-container" class="relative rounded-2xl border border-white/5 overflow-hidden transition-all bg-slate-950/40">
+                                    <textarea id="release-input" rows="4" class="w-full bg-transparent p-4 text-sm text-rose-200 focus:outline-none transition-all placeholder-slate-500" placeholder="例如：我害怕如果不辛苦賺錢就會陷入絕境（能級100）、我覺得自己不夠好所以配不上豐盛的恩典（能級30）。我依然緊抓這些幻相不放..."></textarea>
+                                    
+                                    <!-- Embedded Canvas for Combustion Fire Particle Effect -->
+                                    <canvas id="burn-canvas" class="absolute inset-0 w-full h-full pointer-events-none hidden"></canvas>
+                                    
+                                    <!-- Dynamic overlay text inside container -->
+                                    <div id="release-burn-overlay" class="absolute inset-0 bg-slate-950/95 hidden flex-col items-center justify-center text-center z-10 opacity-0 transition-opacity duration-700">
+                                        <div class="relative w-20 h-20 mb-2 flex items-center justify-center">
+                                            <div class="absolute inset-0 rounded-full bg-rose-600/20 blur-xl animate-pulse"></div>
+                                            <i class="fa-solid fa-fire text-4xl text-rose-500 animate-bounce"></i>
+                                        </div>
+                                        <p class="text-xs text-rose-300 tracking-widest font-serif">老舊意念熔解重塑中...</p>
+                                        <p class="text-[10px] text-slate-500 mt-1">低頻磁性阻礙已完全轉化為純淨光能！</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- NEW: Accumulated beliefs list display -->
+                            <div id="released-list-container" class="mt-3 hidden bg-slate-950/20 p-4 rounded-2xl border border-white/5">
+                                <span class="text-[10px] text-rose-400 font-semibold uppercase tracking-wider block mb-2"><i class="fa-solid fa-fire-flame-curved"></i> 本次儀式中已成功溶解並轉化的信念（累積中）：</span>
+                                <div id="released-accumulated-chips" class="flex flex-col gap-1.5 max-h-36 overflow-y-auto pr-1">
+                                    <!-- Dynamic chips added here -->
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end">
+                                <button type="button" id="btn-trigger-release" onclick="executeReleaseRitual()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-700 to-amber-600 hover:from-rose-600 hover:to-amber-500 text-white text-xs font-medium shadow-lg shadow-rose-900/20 transition-all flex items-center gap-2">
+                                    <i class="fa-solid fa-fire-burner animate-pulse"></i> 執行神聖火焰燃燒儀式
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: High Frequency Affirmation -->
+                    <div class="step-panel hidden" id="step-panel-3">
+                        <div class="space-y-6">
+                            <div class="border-b border-white/5 pb-4">
+                                <h3 class="text-lg font-medium text-emerald-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-sun text-emerald-400"></i> 第三階段：高頻肯定 (Affirmation)
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-1">選取或自訂肯定誓言，重塑大腦的實相藍圖，對接 350（接納）至 500（愛）的意識能級。</p>
+                            </div>
+
+                            <!-- Dynamic Presets Grid -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-3">選取今日與你靈性共鳴的霍金斯誓言 (可多選)：</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="affirmation-bank">
+                                    <!-- Added via JS -->
+                                </div>
+                            </div>
+
+                            <!-- Custom Input Affirmation -->
+                            <div>
+                                <label for="custom-affirmation" class="block text-xs font-medium text-slate-300 mb-2">我為今日能級量身定制的靈魂宣告：</label>
+                                <textarea id="custom-affirmation" rows="2" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl p-4 text-sm text-emerald-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder-slate-500" placeholder="例如：我寬容地放手過去所有的抓取。我深信萬物皆有其最完美的安排，我處於安詳且被愛的共振中。"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Submit Order to the Universe -->
+                    <div class="step-panel hidden" id="step-panel-4">
+                        <div class="space-y-6">
+                            <div class="border-b border-white/5 pb-4">
+                                <h3 class="text-lg font-medium text-amber-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-cart-shopping text-amber-400"></i> 第四階段：向宇宙下訂單 (Universe Order)
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-1">在穩固的高能級狀態下寫下你的訂單，並補充足夠的細節與感恩，讓實相加速投射。</p>
+                            </div>
+
+                            <!-- Form Elements -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="md:col-span-1">
+                                    <label for="order-category" class="block text-xs font-medium text-slate-300 mb-2">顯化訂單領域：</label>
+                                    <select id="order-category" class="w-full bg-slate-950 border border-white/10 rounded-2xl px-4 py-3 text-xs text-slate-300 focus:outline-none focus:border-amber-400 transition-all">
+                                        <option value="財富豐盛">💰 財富豐盛</option>
+                                        <option value="親密愛戀">💖 親密愛戀與關係</option>
+                                        <option value="事業成就">🚀 事業發展與成就</option>
+                                        <option value="身心健康">🍀 身心活力健康</option>
+                                        <option value="靈性成長">🌌 靈性成長與覺醒</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="order-title" class="block text-xs font-medium text-slate-300 mb-2">顯化訂單標題 (明確意圖投射)：</label>
+                                    <input type="text" id="order-title" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-amber-400 transition-all" placeholder="例如：順利獲得完美契合我天賦的職位，月薪與環境超乎我的預期">
+                                </div>
+                            </div>
+
+                            <!-- Focus Intentions and Gratitude -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="focus-input" class="block text-xs font-medium text-slate-300 mb-2">今日最想聚焦的意圖 (正向焦點)：</label>
+                                    <input type="text" id="focus-input" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-amber-400 transition-all" placeholder="例如：全然安住在「我是配得一切美好」的豐盛喜悅頻率中">
+                                </div>
+                                <div>
+                                    <label for="gratitude-input" class="block text-xs font-medium text-slate-300 mb-2">值得感恩的美好小事 (1-3件)：</label>
+                                    <input type="text" id="gratitude-input" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-amber-400 transition-all" placeholder="例如：1. 極美味的午餐 2. 出行一路上都是綠燈 3. 家人平安">
+                                </div>
+                            </div>
+
+                            <!-- Future Realization Feeling description -->
+                            <div>
+                                <label for="order-feeling" class="block text-xs font-medium text-slate-300 mb-2">寫下當顯化達成時，我的靈魂感受與感謝詞 (與目標高能級同頻共振)：</label>
+                                <textarea id="order-feeling" rows="3" class="w-full bg-slate-950/40 border border-white/5 rounded-2xl p-4 text-xs text-amber-200 focus:outline-none focus:border-amber-400 transition-all placeholder-slate-500" placeholder="例如：我感到前所未有的心安、自由與被愛包圍！萬分感謝宇宙聽到了我的內在信號，這一切以最完美的形式發生了。謝謝！"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steps Steering controllers -->
+                    <div class="flex justify-between items-center mt-8 border-t border-white/5 pt-6">
+                        <button type="button" id="btn-prev-step" onclick="changeStep(-1)" class="px-5 py-2.5 rounded-xl border border-white/10 text-slate-400 hover:text-white text-xs font-medium transition-all flex items-center gap-1.5 opacity-0 pointer-events-none">
+                            <i class="fa-solid fa-arrow-left"></i> 上一步
+                        </button>
+                        <button type="button" id="btn-next-step" onclick="changeStep(1)" class="px-5 py-2.5 rounded-xl bg-violet-600/30 border border-violet-500/30 hover:bg-violet-600 text-white text-xs font-semibold shadow-lg transition-all flex items-center gap-1.5">
+                            下一步 <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: Time Corridor History Log -->
+        <section id="section-history" class="tab-content hidden">
+            <!-- Analytics and Filters -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                <!-- Vibe Level Historical Chart -->
+                <div class="lg:col-span-8 glass-panel p-6 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-violet-400"></i> 意識能級波動趨勢
+                        </h3>
+                        <p class="text-[11px] text-slate-400">見證你從 Force(外力強求) 走向 Power(心靈原能) 的覺醒波動圖景</p>
+                    </div>
+                    <!-- Custom SVG Trend Line Chart -->
+                    <div class="h-44 w-full mt-4 flex items-center justify-center relative bg-slate-950/30 rounded-2xl border border-white/5 overflow-hidden p-2">
+                        <div id="chart-y-grid" class="absolute left-2 top-0 bottom-0 flex flex-col justify-between text-[8px] text-slate-500 select-none">
+                            <span>1000</span>
+                            <span>500</span>
+                            <span>200</span>
+                            <span>0</span>
+                        </div>
+                        <svg id="history-svg-chart" class="w-full h-full" viewBox="0 0 600 160" preserveAspectRatio="none">
+                            <!-- Background guides -->
+                            <line x1="0" y1="16" x2="600" y2="16" stroke="rgba(251,191,36,0.08)" stroke-dasharray="3,3" />
+                            <line x1="0" y1="80" x2="600" y2="80" stroke="rgba(16,185,129,0.08)" stroke-dasharray="3,3" />
+                            <line x1="0" y1="128" x2="600" y2="128" stroke="rgba(239,68,68,0.1)" stroke-dasharray="3,3" />
+                            
+                            <!-- Polyline and gradient path will be appended dynamically via JavaScript -->
+                            <g id="chart-line-elements"></g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Simple Search and Domain Filter -->
+                <div class="lg:col-span-4 glass-panel p-6 rounded-3xl flex flex-col justify-between gap-4">
+                    <div>
+                        <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                            <span class="w-1.5 h-4 bg-indigo-400 rounded-full"></span> 能級時光篩選
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">搜尋與精煉你的心想事成實相投影軌跡。</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="relative w-full">
+                            <span class="absolute left-3.5 top-2.5 text-slate-500 text-xs"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="text" id="search-history" oninput="filterHistory()" class="w-full bg-slate-950/60 border border-white/5 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-violet-500" placeholder="搜尋日記內容或訂單主題...">
+                        </div>
+                        <select id="filter-category" onchange="filterHistory()" class="w-full bg-slate-950/60 border border-white/5 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none">
+                            <option value="all">顯示所有領域</option>
+                            <option value="財富豐盛">💰 財富豐盛</option>
+                            <option value="親密愛戀">💖 親密愛戀</option>
+                            <option value="事業成就">🚀 事業成就</option>
+                            <option value="身心健康">🍀 身心健康</option>
+                            <option value="靈性成長">🌌 靈性成長</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historical Records Timeline -->
+            <div id="history-timeline" class="space-y-6">
+                <!-- Dynamic Content Elements -->
+            </div>
+
+            <!-- Empty State View -->
+            <div class="hidden flex-col items-center justify-center py-24 text-center glass-panel rounded-3xl" id="empty-history-view">
+                <div class="w-20 h-20 rounded-full bg-slate-900 border border-white/5 flex items-center justify-center text-slate-500 mb-4 text-2xl">
+                    <i class="fa-solid fa-scroll animate-bounce"></i>
+                </div>
+                <h3 class="text-base font-semibold text-slate-300">尚未留下意識足跡</h3>
+                <p class="text-xs text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
+                    在「顯化儀式」中寫下你的第一篇能級對焦。當你寫下文字，新次元的實相就已經在編織。
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Solfeggio Meditation Breathing Chamber -->
+        <section id="section-energy" class="tab-content hidden max-w-3xl mx-auto">
+            <div class="glass-panel p-8 rounded-3xl text-center space-y-8 relative overflow-hidden">
+                <div class="absolute -left-20 -bottom-20 w-48 h-48 bg-emerald-600/10 rounded-full blur-3xl"></div>
+                <div class="absolute -right-20 -top-20 w-48 h-48 bg-violet-600/10 rounded-full blur-3xl"></div>
+
+                <div class="max-w-md mx-auto">
+                    <span class="text-xs font-serif tracking-widest text-emerald-400 uppercase block mb-1">Energy Accumulation</span>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">4-4-4 宇宙呼吸冥想室</h2>
+                    <p class="text-xs text-slate-400 mt-2">
+                        遵循「吸氣4秒、屏息4秒、呼氣4秒」神聖循環，調諧自主神經，迅速將你混亂的能量調諧至 250(平靜) 至 600(和平) 的高共振場域。
+                    </p>
+                </div>
+
+                <!-- Solfeggio Audio Selector Interface -->
+                <div class="max-w-sm mx-auto bg-slate-950/40 p-4 rounded-2xl border border-white/5">
+                    <span class="text-[10px] text-slate-400 block mb-2 font-medium tracking-wider">🕉️ 選擇背景調諧索菲吉歐波段（528Hz DNA 修復/ 432Hz 宇宙和諧）</span>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="setSolfeggioFreq(432, this)" class="solfeggio-btn px-2 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs transition-all font-medium">432Hz</button>
+                        <button onclick="setSolfeggioFreq(528, this)" class="solfeggio-btn px-2 py-1.5 rounded-lg border border-white/5 bg-slate-900 text-slate-400 text-xs transition-all font-medium">528Hz</button>
+                        <button onclick="setSolfeggioFreq(639, this)" class="solfeggio-btn px-2 py-1.5 rounded-lg border border-white/5 bg-slate-900 text-slate-400 text-xs transition-all font-medium">639Hz</button>
+                    </div>
+                </div>
+
+                <!-- Solfeggio breathing guide circles -->
+                <div class="flex flex-col items-center justify-center py-4">
+                    <div id="meditation-circle-outer" class="relative w-64 h-64 rounded-full border border-white/5 bg-slate-950/30 flex items-center justify-center transition-all duration-[4000ms] ease-in-out">
+                        <!-- Inner glowing scaling breath circle -->
+                        <div id="meditation-circle" class="w-32 h-32 rounded-full bg-gradient-to-tr from-violet-600/40 via-emerald-500/30 to-amber-300/20 border border-white/10 flex items-center justify-center transition-all duration-[4000ms] ease-in-out">
+                            <span id="meditation-text" class="text-sm font-semibold text-emerald-300 tracking-wider">點擊開始</span>
+                        </div>
+                        <div class="absolute inset-0 border border-dashed border-emerald-500/10 rounded-full spin-slow"></div>
+                    </div>
+                </div>
+
+                <!-- Counts & Accumulated values -->
+                <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                    <div class="glass-card p-4 rounded-2xl">
+                        <span class="text-[10px] text-slate-400 block mb-1">本次完整深呼吸</span>
+                        <span class="text-2xl font-serif font-bold text-white" id="breath-count">0</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl">
+                        <span class="text-[10px] text-slate-400 block mb-1">已積累顯化原能</span>
+                        <span class="text-2xl font-serif font-bold text-amber-300" id="energy-points">0 +</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-center gap-3">
+                    <button id="btn-meditation-toggle" onclick="toggleMeditation()" class="px-6 py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-600 hover:text-white text-xs font-semibold shadow-lg transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-play"></i> 開始對焦呼吸
+                    </button>
+                    <button onclick="resetMeditation()" class="px-4 py-2.5 rounded-xl border border-white/5 text-xs text-slate-400 hover:text-white transition-all">
+                        重設計數
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- HAWKINS FULL MAP GUIDE SLIDE-OUT PANEL -->
+    <div id="hawkins-guide-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-slate-950/95 border-l border-white/10 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center pb-4 border-b border-white/15 mb-6">
+                <div>
+                    <h3 class="font-serif text-lg font-semibold text-white tracking-wider">大衛·霍金斯意識能級量表</h3>
+                    <p class="text-[10px] text-slate-400">Map of Consciousness Reference</p>
+                </div>
+                <button onclick="closeHawkinsGuide()" class="text-slate-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-2" id="hawkins-map-reference-container">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAILS MODAL PANEL -->
+    <div id="detail-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-slate-950/40">
+                <div class="flex items-center gap-3">
+                    <span id="modal-category-badge" class="px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider"></span>
+                    <span id="modal-date" class="text-xs text-slate-400"></span>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <!-- Scrollable Content -->
+            <div class="p-6 overflow-y-auto space-y-6 flex-1">
+                <!-- Manifestation Order Information -->
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-l-amber-400">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] text-amber-400 tracking-wider font-semibold block uppercase">📋 顯化訂單</span>
+                        <span id="modal-order-status" class="text-[10px] px-2 py-0.5 rounded-md font-medium"></span>
+                    </div>
+                    <h3 id="modal-order-title" class="text-base font-bold text-slate-100 mb-2"></h3>
+                    <p id="modal-order-feeling" class="text-xs text-slate-400 italic bg-slate-950/30 p-3 rounded-lg"></p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Target Focus & Gratitudes -->
+                    <div class="glass-card p-4 rounded-2xl">
+                        <span class="text-[10px] text-indigo-400 tracking-wider font-semibold block uppercase mb-2">🧭 意圖焦點</span>
+                        <p id="modal-focus" class="text-xs text-slate-200"></p>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl">
+                        <span class="text-[10px] text-emerald-400 tracking-wider font-semibold block uppercase mb-2">🌸 美好感恩小事</span>
+                        <p id="modal-gratitude" class="text-xs text-slate-200"></p>
+                    </div>
+                </div>
+
+                <!-- Deep Awareness insights -->
+                <div class="glass-card p-4 rounded-2xl">
+                    <span class="text-[10px] text-violet-400 tracking-wider font-semibold block uppercase mb-2">👁️ 深度覺察能級與心境</span>
+                    <p id="modal-awareness" class="text-xs text-slate-200 leading-relaxed"></p>
+                </div>
+
+                <!-- Released beliefs -->
+                <div class="glass-card p-4 rounded-2xl border-l-2 border-l-rose-500/40 bg-rose-950/5">
+                    <span class="text-[10px] text-rose-400 tracking-wider font-semibold block uppercase mb-2">🔥 釋放之信念</span>
+                    <p id="modal-released" class="text-xs text-rose-200/80 italic"></p>
+                </div>
+
+                <!-- Assertions/Affirmations -->
+                <div class="glass-card p-4 rounded-2xl border-l-2 border-l-emerald-500/40 bg-emerald-950/5">
+                    <span class="text-[10px] text-emerald-400 tracking-wider font-semibold block uppercase mb-2">✨ 肯定宣言</span>
+                    <ul id="modal-affirmations" class="text-xs text-slate-200 space-y-2 list-disc pl-4"></ul>
+                </div>
+            </div>
+
+            <!-- Footer Action buttons -->
+            <div class="p-4 bg-slate-950/40 border-t border-white/5 flex justify-end gap-2">
+                <button id="modal-toggle-status-btn" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all"></button>
+                <button onclick="requestDeleteDiary()" class="px-4 py-2 rounded-xl bg-rose-600/10 border border-rose-500/15 text-rose-400 hover:bg-rose-600 hover:text-white text-xs transition-all">刪除此紀錄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM CONFIRMATION POPUP MODAL (Replaces confirm alert) -->
+    <div id="confirm-dialog" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel w-full max-w-sm rounded-2xl border border-white/10 p-6 shadow-2xl space-y-4">
+            <h4 id="confirm-title" class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-circle-question text-rose-400"></i> 確認執行操作
+            </h4>
+            <p id="confirm-desc" class="text-xs text-slate-300 leading-relaxed"></p>
+            <div class="flex justify-end gap-2.5 pt-2">
+                <button id="confirm-cancel-btn" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-white/5 text-slate-400 text-xs hover:text-white transition-all">取消</button>
+                <button id="confirm-ok-btn" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs transition-all">確認執行</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elegant Toast Alerts -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="glass-panel px-5 py-3.5 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3">
+            <span id="toast-icon" class="w-6 h-6 rounded-full bg-violet-600/20 text-violet-300 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-sparkles"></i>
+            </span>
+            <p id="toast-message" class="text-xs font-medium text-slate-200"></p>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================================
+        // 1. Hawkins Scales Model Definitions & Helper Metadata
+        // ==========================================================
+        const HAWKINS_LEVELS = {
+            Enlightenment: { name: "開悟極樂", min: 700, max: 1000, desc: "不可言說的純粹覺醒狀態，與宇宙意識合一，能量投射強大無比。", color: "from-amber-400 via-yellow-200 to-white", glow: "rgba(251,191,36,0.6)", border: "border-amber-400", bgTag: "bg-amber-400/10 text-amber-300 border-amber-400/20" },
+            Peace: { name: "和平寧靜", min: 600, max: 699, desc: "主客體界限消融，極致安詳，心想事成只是自然投射的副產品。", color: "from-amber-300 via-indigo-300 to-violet-300", glow: "rgba(252,211,77,0.5)", border: "border-amber-300", bgTag: "bg-amber-300/10 text-amber-200 border-amber-300/20" },
+            Joy: { name: "安詳喜悅", min: 540, max: 599, desc: "無條件的和煦內在喜悅，具備強大療癒共振，顯化對焦速度極快。", color: "from-amber-400 via-emerald-400 to-indigo-300", glow: "rgba(16,185,129,0.5)", border: "border-emerald-400", bgTag: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20" },
+            Love: { name: "無條件之愛", min: 500, max: 539, desc: "由心輪主導的寬厚之愛，無評判，能融合能量、加速正面吸引力。", color: "from-emerald-400 to-indigo-400", glow: "rgba(52,211,153,0.45)", border: "border-emerald-500", bgTag: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20" },
+            Reason: { name: "理智明晰", min: 400, max: 499, desc: "具備深度邏輯整合、哲學明晰與洞察本質能力，不偏不倚。", color: "from-indigo-400 to-violet-500", glow: "rgba(129,140,248,0.4)", border: "border-indigo-400", bgTag: "bg-indigo-500/10 text-indigo-300 border-indigo-500/20" },
+            Acceptance: { name: "接納寬容", min: 350, max: 399, desc: "拿回生命掌控權，全然接納真相，不再推託給外界，能量回流。", color: "from-indigo-500 to-violet-600", glow: "rgba(99,102,241,0.35)", border: "border-indigo-500", bgTag: "bg-indigo-500/10 text-indigo-300 border-indigo-500/20" },
+            Willingness: { name: "主動樂意", min: 310, max: 349, desc: "對新事物持開放友善姿態，行動敏捷，沒有過度傲慢與自我防衛。", color: "from-violet-500 to-purple-600", glow: "rgba(139,92,246,0.35)", border: "border-violet-400", bgTag: "bg-violet-500/10 text-violet-300 border-violet-500/20" },
+            Neutrality: { name: "平靜信賴", min: 250, max: 309, desc: "淡定自若，不易受挫折與威脅左右。處於安全的客觀視角。", color: "from-violet-600 via-rose-500 to-indigo-600", glow: "rgba(244,63,94,0.3)", border: "border-rose-400", bgTag: "bg-rose-500/10 text-rose-300 border-rose-500/20" },
+            Courage: { name: "勇氣躍遷", min: 200, max: 249, desc: "分水嶺！敢於面對考驗、承擔責任，跨越這道門檻，顯化轉為正向流動。", color: "from-rose-500 to-violet-900", glow: "rgba(244,63,94,0.25)", border: "border-rose-500", bgTag: "bg-rose-500/10 text-rose-400 border-rose-500/25" },
+            Pride: { name: "驕傲傲慢", min: 175, max: 199, desc: "依附外界標準確立自我，排外，容易受自尊與名譽被刺痛而產生痛苦。", color: "from-rose-900 via-violet-950 to-slate-900", glow: "rgba(225,29,72,0.18)", border: "border-rose-950", bgTag: "bg-red-500/10 text-red-400 border-red-500/20" },
+            Force: { name: "逆流消耗 (Force)", min: 0, max: 174, desc: "能量低於200臨界點（憤怒/恐懼/愧疚/羞愧），生命力常感困頓阻礙重重。", color: "from-red-950 to-stone-900", glow: "rgba(220,38,38,0.15)", border: "border-stone-900", bgTag: "bg-red-500/10 text-red-400 border-red-500/20" }
+        };
+
+        function getHawkinsMetadata(level) {
+            for (const key in HAWKINS_LEVELS) {
+                const config = HAWKINS_LEVELS[key];
+                if (level >= config.min && level <= config.max) return config;
+            }
+            return HAWKINS_LEVELS.Force;
+        }
+
+        // Default local system backup diaries
+        const LOCAL_DEFAULT_DIARIES = [
+            {
+                id: 'mock-1',
+                date: '2026-06-05',
+                time: '10:30',
+                vibe: '喜悅豐盛',
+                vibeLevel: 510,
+                awareness: '在面對新專案時，我誠實看見內在有一絲計較與擔心，隨後我放鬆下來（從 Pride 轉化為 Acceptance）。我選擇信任宇宙對我的完美支持，不強求控制，全然順流。',
+                releasedBelief: '我必須每天受苦並拼命硬撐才配得上獲得豐盛（能級30：不配得感）。',
+                selectedAffirmations: [
+                    '我全然接受當下的力量與美好',
+                    '我向宇宙無限的智慧與豐盛敞開',
+                    '我是愛、和平與喜悅的發光體'
+                ],
+                customAffirmation: '創造對我而言是如此自然。只要在喜悅與寬容中，豐盛便能不求自得。',
+                orderCategory: '事業成就',
+                orderTitle: '顯化契合核心天賦、主管同事融洽、且支持遠端彈性辦公的優質職缺',
+                orderFeeling: '我感到無比的心安與喜悅！謝謝宇宙精準對接我的靈性天賦，我深深地感到被愛與支持。',
+                focusIntention: '全天維持霍金斯 500(愛) 以上的高能磁場，不帶評判地去欣賞每個人。',
+                gratitude: '1. 品嚐到香醇的燕麥奶拿鐵 2. 被主管在全體會議中溫和肯定 3. 出門剛好遇到綠燈順暢行駛',
+                orderStatus: 'Fulfilled' 
+            },
+            {
+                id: 'mock-2',
+                date: '2026-06-07',
+                time: '08:15',
+                vibe: '平靜和諧',
+                vibeLevel: 350,
+                awareness: '晨間呼吸時，我深切感受到心跳，體會到健康的身體是如此珍貴。我的心率很平穩，心中沒有太多執念，允許一切如其所是。',
+                releasedBelief: '我對於未知的健康抱持著微妙的不信任感與災難化聯想（能級100：恐懼焦慮）。',
+                selectedAffirmations: [
+                    '我的內心無比安全，宇宙無時無刻在保護著我',
+                    '我是完整無瑕、充滿活力的能量主體'
+                ],
+                customAffirmation: '我的身體細胞每天都充滿光能，完美和諧地運作。',
+                orderCategory: '身心健康',
+                orderTitle: '建立每日 7.5 小時的高品質睡眠，起床時感到神清氣爽',
+                orderFeeling: '起床那一刻感到身體無比輕盈，大腦清晰、神清氣爽。感恩宇宙賦予我這具充滿活力的完美神殿！',
+                focusIntention: '多喝純淨溫水，正念漫步 20 分鐘。',
+                gratitude: '1. 清晨窗外清脆的鳥叫聲 2. 躺在舒服乾淨的床單上 3. 伸展完身體後暖洋洋的舒暢感',
+                orderStatus: 'In Transit'
+            }
+        ];
+
+        const AFFIRMATION_PRESETS = [
+            "我向宇宙無限的智慧與能量敞開，完全信任其流動 🌌 (能級 350)",
+            "我的內心無比安全，我被神聖力量完美守護著 🛡️ (能級 250)",
+            "我寬恕一切過往，並以無條件的愛對齊一切發生 💖 (能級 500)",
+            "我欣然接受生活中的所有考驗，因為它們都是靈魂羽化的契機 🦋 (能級 310)",
+            "我的存在即是至高無上的價值，我無需證明什麼 ✨ (能級 400)",
+            "當我放鬆並跟隨內在喜悅，宇宙所有的豐盛磁鐵便完美吸附我 🧲 (能級 540)",
+            "在極致的寧靜中，我聽見靈魂對我的低語，一切早已圓滿 🧘‍♂️ (能級 600)",
+            "我選擇用理解代替憤怒，用慈悲消融傲慢，我是光明的載體 ☀️ (能級 500)"
+        ];
+
+        const COSMIC_QUOTES = [
+            { text: "「當你真心渴望某樣東西時，整個宇宙都會聯合起來幫助你完成。」", author: "《秘密》朗達·拜恩" },
+            { text: "「力量來自於內在的與真理相應（Power），而強迫則是源於脆弱自我的控制慾（Force）。」", author: "《心靈能量》大衛·霍金斯" },
+            { text: "「凡是你感恩的事物，你都在用感恩的磁性將它成倍增加。」", author: "吸引力法則" },
+            { text: "「改變你的想法與能量層級，你周遭的物理實相也將隨之變形。」", author: "《心靈能量》大衛·霍金斯" },
+            { text: "「豐盛不是我們去獲取的東西，而是我們去對齊的頻率。」", author: "韋恩·戴爾" },
+            { text: "「愛是高能顯化的終極金鑰。能級500以上的渴望，將以最順流的方式來到你身邊。」", author: "大衛·霍金斯" }
+        ];
+
+        // ==========================================================
+        // 2. Global State Variable Declarations
+        // ==========================================================
+        let diaries = [];
+        let currentStep = 1;
+        const totalSteps = 4;
+        let selectedVibeChips = [];
+        let selectedAffirmationChips = [];
+        let currentlySelectedDiaryId = null;
+        let currentRitualVibeLevel = 250; 
+
+        // Breathing Mediation Variables
+        let breathInterval = null;
+        let breathCount = 0;
+        let energyPoints = 250; 
+        let isMeditating = false;
+
+        // Custom Confirm Dialog Callbacks
+        let confirmOKCallback = null;
+
+        // Web Audio Synthesized Sounds
+        let audioCtx = null;
+        let mainOscillator = null;
+        let mainGainNode = null;
+        let solfeggioActive = false;
+        let selectedFreq = 432;
+
+        // ==========================================================
+        // 3. Audio Synth Engine (Web Audio API Procedural Sound)
+        // ==========================================================
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSolfeggioTone(freq) {
+            try {
+                initAudioContext();
+                if (solfeggioActive) {
+                    stopSolfeggioTone();
+                }
+
+                mainOscillator = audioCtx.createOscillator();
+                mainGainNode = audioCtx.createGain();
+
+                // Pure sine waves represent clean cosmic vibrations
+                mainOscillator.type = 'sine';
+                mainOscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                // Safe ambient master volume control
+                mainGainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                mainGainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1.5); // Warm fade-in
+
+                mainOscillator.connect(mainGainNode);
+                mainGainNode.connect(audioCtx.destination);
+
+                mainOscillator.start();
+                solfeggioActive = true;
+            } catch (e) {
+                console.warn("Audio generation failed: ", e);
+            }
+        }
+
+        function stopSolfeggioTone() {
+            try {
+                if (mainOscillator && mainGainNode) {
+                    mainGainNode.gain.setValueAtTime(mainGainNode.gain.value, audioCtx.currentTime);
+                    mainGainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
+                    setTimeout(() => {
+                        if (mainOscillator) {
+                            mainOscillator.stop();
+                            mainOscillator.disconnect();
+                            mainOscillator = null;
+                        }
+                    }, 900);
+                }
+                solfeggioActive = false;
+            } catch (e) {}
+        }
+
+        // Procedural Sacred Singing Bowl Chime Trigger
+        function triggerSingingBowlChime() {
+            try {
+                initAudioContext();
+                const now = audioCtx.currentTime;
+                
+                // Dynamic combination of foundational frequency and harmonic overtones
+                const frequencies = [selectedFreq, selectedFreq * 1.5, selectedFreq * 2, selectedFreq * 2.61];
+                const weights = [0.06, 0.03, 0.015, 0.008];
+
+                frequencies.forEach((f, index) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now);
+
+                    // Quick swell and exponential long echo decay mimicking singing bowl vibration
+                    gain.gain.setValueAtTime(0.0001, now);
+                    gain.gain.linearRampToValueAtTime(weights[index], now + 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 4.0 + (index * 0.5));
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 6.0);
+                });
+            } catch (e) {}
+        }
+
+        function setSolfeggioFreq(freq, button) {
+            selectedFreq = freq;
+            document.querySelectorAll('.solfeggio-btn').forEach(btn => {
+                btn.className = "solfeggio-btn px-2 py-1.5 rounded-lg border border-white/5 bg-slate-900 text-slate-400 text-xs transition-all font-medium";
+            });
+            button.className = "solfeggio-btn px-2 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs transition-all font-medium";
+            
+            triggerSingingBowlChime();
+            showToast(`已對焦至 Solfeggio 頻率: ${freq}Hz`, "info");
+            
+            if (isMeditating) {
+                playSolfeggioTone(freq);
+            }
+        }
+
+        // ==========================================================
+        // 4. System Initialization & Canvas Animation Engine
+        // ==========================================================
+        window.onload = function() {
+            setupCustomConfirmDialog();
+            initCosmicCanvas();
+            initDatabaseConnection();
+            
+            renderAffirmationBank();
+            generateCosmicQuote();
+            buildHawkinsStaticReferenceMap();
+
+            // Set up initial UI states
+            document.getElementById('energy-points').innerText = energyPoints + " +";
+        };
+
+        // Canvas-based twinkling stargaze and floating nebulae
+        let canvas, ctx, particles = [];
+        function initCosmicCanvas() {
+            canvas = document.getElementById('cosmic-canvas');
+            ctx = canvas.getContext('2d');
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Construct stellar dusts
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    speed: Math.random() * 0.15 + 0.05,
+                    color: i % 10 === 0 ? 'rgba(251, 191, 36, ' : 'rgba(255, 255, 255, '
+                });
+            }
+
+            requestAnimationFrame(drawCosmicUniverse);
+        }
+
+        function resizeCanvas() {
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        }
+
+        function drawCosmicUniverse() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Render Nebulae glows
+            const grad = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 50, 
+                canvas.width / 2, canvas.height / 2, canvas.width * 0.7
+            );
+            grad.addColorStop(0, '#0c0a21');
+            grad.addColorStop(0.5, '#04030a');
+            grad.addColorStop(1, '#020104');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Twist and render stars
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.alpha += p.speed * (Math.random() > 0.5 ? 1 : -1) * 0.1;
+                if (p.alpha > 0.95) p.alpha = 0.95;
+                if (p.alpha < 0.1) p.alpha = 0.1;
+
+                p.y -= p.speed * 0.4;
+                if (p.y < 0) p.y = canvas.height;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.alpha + ')';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(drawCosmicUniverse);
+        }
+
+        // ==========================================================
+        // 5. Unified Database Adapter Class (Firestore / LocalStorage)
+        // ==========================================================
+        let db = null;
+        let auth = null;
+        let isFirebaseActive = false;
+        let currentUser = null;
+        let currentAppId = 'cosmic-manifest';
+
+        function initDatabaseConnection() {
+            // Check if Firebase config object is mounted by container environment
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                try {
+                    // Inject runtime environment parameters
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    currentAppId = typeof __app_id !== 'undefined' ? __app_id : 'cosmic-manifest';
+                    
+                    // Dynamically import GStatic ES modules
+                    import('https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js')
+                        .then((module) => {
+                            const initializeApp = module.initializeApp;
+                            const app = initializeApp(firebaseConfig);
+                            
+                            // Initialize secondary modules
+                            Promise.all([
+                                import('https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js'),
+                                import('https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js')
+                            ]).then(([authModule, firestoreModule]) => {
+                                auth = authModule.getAuth(app);
+                                db = firestoreModule.getFirestore(app);
+                                
+                                // Perform Authentication flow prior to query operations (Rule 3)
+                                performDatabaseAuthorization(authModule, firestoreModule);
+                            });
+                        });
+                    return;
+                } catch (e) {
+                    console.warn("Failed to initialize remote Firebase: ", e);
+                }
+            }
+            
+            // Fallback immediately to robust local storage environment
+            initializeLocalStorageFallback();
+        }
+
+        async function performDatabaseAuthorization(authModule, firestoreModule) {
+            try {
+                // Precedence: Custom Runtime Token > Anonymous Session
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await authModule.signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await authModule.signInAnonymously(auth);
+                }
+
+                authModule.onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        currentUser = user;
+                        isFirebaseActive = true;
+                        
+                        // Set up strict security schema path listeners (Rule 1)
+                        const collectionPath = firestoreModule.collection(
+                            db, 'artifacts', currentAppId, 'users', currentUser.uid, 'diaries'
+                        );
+                        
+                        // Rule 2 check: Using simple snapshot without complex parameters
+                        firestoreModule.onSnapshot(collectionPath, (snapshot) => {
+                            let remoteDiaries = [];
+                            snapshot.forEach((doc) => {
+                                remoteDiaries.push({ id: doc.id, ...doc.data() });
+                            });
+                            
+                            // Sort in local memory (Rule 2 requirement)
+                            diaries = remoteDiaries.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+                            
+                            if (diaries.length === 0) {
+                                // Seed initial high-energy guidelines
+                                diaries = [...LOCAL_DEFAULT_DIARIES];
+                            }
+                            
+                            updateUIRenderingAndCalculations();
+                        }, (error) => {
+                            console.error("Firestore listener broken: ", error);
+                            showToast("雲端同步出現微小擾動，正在重啟自動修復機制...", "warning");
+                        });
+                        
+                        showToast(`🌌 已安全進入您的個人意識星域，開始數據對焦`, "info");
+                    } else {
+                        initializeLocalStorageFallback();
+                    }
+                });
+            } catch(e) {
+                console.error("Auth / Connection setup failed: ", e);
+                initializeLocalStorageFallback();
+            }
+        }
+
+        function initializeLocalStorageFallback() {
+            isFirebaseActive = false;
+            const savedData = localStorage.getItem('hawkins_cosmic_diaries_v2');
+            if (savedData) {
+                try {
+                    diaries = JSON.parse(savedData);
+                } catch(e) {
+                    diaries = [...LOCAL_DEFAULT_DIARIES];
+                }
+            } else {
+                diaries = [...LOCAL_DEFAULT_DIARIES];
+                saveStateToPersistentDatabase();
+            }
+            updateUIRenderingAndCalculations();
+        }
+
+        async function saveStateToPersistentDatabase(newDoc = null, deletedDocId = null, updatedDoc = null) {
+            if (isFirebaseActive && currentUser && db) {
+                try {
+                    // Check import path references dynamically
+                    const firestoreModule = await import('https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js');
+                    const targetDocRef = (id) => firestoreModule.doc(
+                        db, 'artifacts', currentAppId, 'users', currentUser.uid, 'diaries', id
+                    );
+
+                    if (deletedDocId) {
+                        await firestoreModule.deleteDoc(targetDocRef(deletedDocId));
+                    } else if (newDoc) {
+                        await firestoreModule.setDoc(targetDocRef(newDoc.id), newDoc);
+                    } else if (updatedDoc) {
+                        await firestoreModule.setDoc(targetDocRef(updatedDoc.id), updatedDoc);
+                    }
+                    return;
+                } catch (e) {
+                    console.error("Firebase synchronization write error: ", e);
+                }
+            }
+
+            // Sync with local fallback copy
+            localStorage.setItem('hawkins_cosmic_diaries_v2', JSON.stringify(diaries));
+            updateUIRenderingAndCalculations();
+        }
+
+        // Updates all charts, dashboards, list view nodes and statistics simultaneously
+        function updateUIRenderingAndCalculations() {
+            updateDashboard();
+            renderOrderTracker();
+            renderHistoryList();
+            drawTrendAnalysisChart();
+        }
+
+        // ==========================================================
+        // 6. Navigation Control & Interface Switching
+        // ==========================================================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-slate-400 hover:text-white";
+            });
+            const activeBtn = document.getElementById(`btn-${tabName}`);
+            if (activeBtn) {
+                activeBtn.className = "nav-btn px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-2 text-violet-200 bg-violet-600/20 border border-violet-500/20";
+            }
+            
+            // Refresh visualizations on tab switches
+            if (tabName === 'history') {
+                renderHistoryList();
+                drawTrendAnalysisChart();
+            } else if (tabName === 'dashboard') {
+                updateDashboard();
+                renderOrderTracker();
+            }
+        }
+
+        // Drawer slider reference controller
+        function openHawkinsGuide() {
+            document.getElementById('hawkins-guide-drawer').classList.remove('translate-x-full');
+        }
+
+        function closeHawkinsGuide() {
+            document.getElementById('hawkins-guide-drawer').classList.add('translate-x-full');
+        }
+
+        // ==========================================================
+        // 7. Render Sub-Modules & Interactive Forms
+        // ==========================================================
+        function renderAffirmationBank() {
+            const container = document.getElementById('affirmation-bank');
+            container.innerHTML = AFFIRMATION_PRESETS.map((aff, index) => {
+                return `
+                    <div type="button" onclick="toggleAffirmationChip(this, \`${aff}\`)" class="affirm-card glass-card rounded-2xl p-3.5 text-xs text-left cursor-pointer transition-all border border-white/5 hover:border-emerald-500/20 flex justify-between items-center gap-2 text-slate-300">
+                        <span>${aff}</span>
+                        <span class="vibe-indicator opacity-0 text-emerald-400"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function buildHawkinsStaticReferenceMap() {
+            const container = document.getElementById('hawkins-map-reference-container');
+            container.innerHTML = Object.keys(HAWKINS_LEVELS).map(key => {
+                const mapItem = HAWKINS_LEVELS[key];
+                return `
+                    <div class="p-3 rounded-xl border border-white/5 bg-slate-900/40 hover:bg-slate-900/70 transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-serif text-xs font-bold text-violet-200">${mapItem.name}</span>
+                            <span class="text-[10px] font-semibold text-amber-300 px-2 py-0.5 rounded-full bg-amber-400/5 border border-amber-400/10">${mapItem.min}+</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 leading-relaxed">${mapItem.desc}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================================
+        // 8. Custom Fire Spark Canvas Particle Combustion Ritual (Step 2)
+        // ==========================================================
+        let burnCanvas, burnCtx, burnParticles = [];
+        let burnAnimationId = null;
+
+        function executeReleaseRitual() {
+            const input = document.getElementById('release-input');
+            const overlay = document.getElementById('release-burn-overlay');
+            const releaseBtn = document.getElementById('btn-trigger-release');
+            const newlyReleased = input.value.trim();
+            
+            if (!newlyReleased) {
+                showToast("請先寫下你想釋放並交付的限制性信念", "warning");
+                return;
+            }
+
+            // Init Web Audio
+            triggerSingingBowlChime();
+
+            // Run fire combust particles on canvas overlay
+            input.classList.add('burning-text');
+            releaseBtn.disabled = true;
+            releaseBtn.classList.add('opacity-40');
+
+            burnCanvas = document.getElementById('burn-canvas');
+            burnCtx = burnCanvas.getContext('2d');
+            burnCanvas.classList.remove('hidden');
+
+            const containerBox = document.getElementById('release-container');
+            burnCanvas.width = containerBox.clientWidth;
+            burnCanvas.height = containerBox.clientHeight;
+
+            // Generate ash particles rising up
+            burnParticles = [];
+            for (let i = 0; i < 180; i++) {
+                burnParticles.push({
+                    x: Math.random() * burnCanvas.width,
+                    y: burnCanvas.height - Math.random() * 20,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: -(Math.random() * 2.5 + 1),
+                    radius: Math.random() * 3 + 1,
+                    alpha: 1,
+                    color: i % 3 === 0 ? 'rgba(239, 68, 68, ' : (i % 3 === 1 ? 'rgba(245, 158, 11, ' : 'rgba(252, 211, 77, ')
+                });
+            }
+
+            animateCombustion();
+
+            // Settle energy after combustion completed
+            setTimeout(() => {
+                overlay.classList.remove('hidden');
+                overlay.style.opacity = '1';
+                
+                if (currentRitualVibeLevel < 200) {
+                    currentRitualVibeLevel = 220; // Automatically leap threshold boundaries to courageous state
+                    showToast("🔥 成功釋放沉重阻抗！跨越 200 能級能量分水嶺！", "success");
+                } else {
+                    currentRitualVibeLevel += 55; 
+                    showToast("🔥 神聖火焰已吞噬塵埃！意識阻抗消除，對焦頻率大振 +55", "success");
+                }
+            }, 1400);
+
+            setTimeout(() => {
+                cancelAnimationFrame(burnAnimationId);
+                burnCanvas.classList.add('hidden');
+                overlay.style.opacity = '0';
+                overlay.classList.add('hidden');
+                
+                input.classList.remove('burning-text');
+                
+                // Accumulate beliefs using custom divider (；) to keep the list clean
+                let existingReleased = input.dataset.releasedVal || "";
+                if (existingReleased) {
+                    existingReleased += "；" + newlyReleased;
+                } else {
+                    existingReleased = newlyReleased;
+                }
+                input.dataset.releasedVal = existingReleased;
+                
+                // Visualise newly compiled list
+                updateAccumulatedReleasedUI(existingReleased);
+                
+                input.placeholder = "信念已成功轉化！您可以繼續寫下其他恐懼執念進行燃燒...";
+                input.value = "";
+                
+                releaseBtn.disabled = false;
+                releaseBtn.classList.remove('opacity-40');
+            }, 4500);
+        }
+
+        function updateAccumulatedReleasedUI(releasedString) {
+            const container = document.getElementById('released-list-container');
+            const list = document.getElementById('released-accumulated-chips');
+            if (!releasedString) {
+                container.classList.add('hidden');
+                return;
+            }
+            container.classList.remove('hidden');
+            const items = releasedString.split('；');
+            list.innerHTML = items.map(item => `
+                <div class="px-3 py-1.5 rounded-xl bg-rose-950/20 border border-rose-500/10 text-xs text-rose-300 flex items-center justify-between">
+                    <span class="truncate pr-4">🔥 已融解轉化：${item}</span>
+                    <span class="text-[9px] text-emerald-400 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-check"></i> Pure Light
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function animateCombustion() {
+            burnCtx.clearRect(0, 0, burnCanvas.width, burnCanvas.height);
+            let alive = false;
+
+            for (let i = 0; i < burnParticles.length; i++) {
+                let p = burnParticles[i];
+                if (p.alpha <= 0) continue;
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.007;
+
+                if (p.alpha > 0) {
+                    alive = true;
+                    burnCtx.beginPath();
+                    burnCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    burnCtx.fillStyle = p.color + p.alpha + ')';
+                    burnCtx.fill();
+                }
+            }
+
+            if (alive) {
+                burnAnimationId = requestAnimationFrame(animateCombustion);
+            }
+        }
+
+        // ==========================================================
+        // 9. Process Step Navigation Wizard Engine
+        // ==========================================================
+        function toggleVibeChip(el, vibe, baseLevel) {
+            const idx = selectedVibeChips.indexOf(vibe);
+            if (idx > -1) {
+                selectedVibeChips.splice(idx, 1);
+                el.classList.remove('border-violet-500', 'bg-violet-600/20', 'text-violet-300');
+                el.classList.add('border-white/5', 'bg-slate-950/20', 'text-slate-400');
+            } else {
+                selectedVibeChips.push(vibe);
+                el.classList.remove('border-white/5', 'bg-slate-950/20', 'text-slate-400');
+                el.classList.add('border-violet-500', 'bg-violet-600/20', 'text-violet-300');
+                
+                currentRitualVibeLevel = baseLevel;
+                triggerSingingBowlChime();
+                showToast(`🔮 與霍金斯意識刻度 ${baseLevel} 調心調頻對齊`, "info");
+            }
+        }
+
+        function toggleAffirmationChip(el, aff) {
+            const idx = selectedAffirmationChips.indexOf(aff);
+            const indicator = el.querySelector('.vibe-indicator');
+            if (idx > -1) {
+                selectedAffirmationChips.splice(idx, 1);
+                indicator.classList.add('opacity-0');
+                el.classList.remove('border-emerald-500/50', 'bg-emerald-500/10', 'text-white');
+                el.classList.add('border-white/5', 'text-slate-300');
+            } else {
+                selectedAffirmationChips.push(aff);
+                indicator.classList.remove('opacity-0');
+                el.classList.remove('border-white/5', 'text-slate-300');
+                el.classList.add('border-emerald-500/50', 'bg-emerald-500/10', 'text-white');
+                
+                currentRitualVibeLevel += 35; 
+                triggerSingingBowlChime();
+                showToast("✨ 誓言鎖定，意識能級高維向心力 +35", "success");
+            }
+        }
+
+        function changeStep(dir) {
+            if (dir === 1) {
+                if (currentStep === 1 && selectedVibeChips.length === 0 && !document.getElementById('awareness-input').value.trim()) {
+                    showToast("請至少點選或記錄一項深度情緒覺察以對齊能級", "warning");
+                    return;
+                }
+                if (currentStep === 2) {
+                    const input = document.getElementById('release-input');
+                    if (input.value.trim() && !input.dataset.releasedVal) {
+                        showToast("請點擊執行神聖火焰燃燒儀式將心靈抗阻釋放", "warning");
+                        return;
+                    }
+                }
+                if (currentStep === 3 && selectedAffirmationChips.length === 0 && !document.getElementById('custom-affirmation').value.trim()) {
+                    showToast("請宣告至少一項高能誓言，重塑大腦的意識實相藍圖", "warning");
+                    return;
+                }
+            }
+
+            currentStep += dir;
+
+            if (currentStep > totalSteps) {
+                dispatchManifestationOrder();
+                return;
+            }
+
+            currentStep = Math.max(1, Math.min(currentStep, totalSteps));
+            
+            document.querySelectorAll('.step-panel').forEach((el, index) => {
+                if (index + 1 === currentStep) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+
+            const prevBtn = document.getElementById('btn-prev-step');
+            const nextBtn = document.getElementById('btn-next-step');
+
+            if (currentStep === 1) {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = `送出顯化訂單 <i class="fa-solid fa-paper-plane text-xs"></i>`;
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 text-xs font-bold shadow-lg shadow-amber-500/15 transition-all flex items-center gap-1.5";
+            } else {
+                nextBtn.innerHTML = `下一步 <i class="fa-solid fa-arrow-right"></i>`;
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-violet-600/30 border border-violet-500/30 hover:bg-violet-600 text-white text-xs font-semibold shadow-lg transition-all flex items-center gap-1.5";
+            }
+
+            for (let i = 1; i <= totalSteps; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (i === currentStep) {
+                    dot.className = "step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-violet-600 text-white ring-4 ring-violet-500/20";
+                    dot.innerText = i;
+                } else if (i < currentStep) {
+                    dot.className = "step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-emerald-600 text-white";
+                    dot.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                } else {
+                    dot.className = "step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-slate-900 text-slate-400 border border-white/5";
+                    dot.innerText = i;
+                }
+            }
+        }
+
+        // ==========================================================
+        // 10. Process Submission & Render Statistics
+        // ==========================================================
+        function dispatchManifestationOrder() {
+            const dateStr = new Date().toISOString().split('T')[0];
+            const timeStr = new Date().toTimeString().split(' ')[0].substring(0, 5);
+            
+            const awarenessInput = document.getElementById('awareness-input').value.trim();
+            const releaseInput = document.getElementById('release-input').dataset.releasedVal || "";
+            const customAffirmation = document.getElementById('custom-affirmation').value.trim();
+            
+            const orderCategory = document.getElementById('order-category').value;
+            const orderTitle = document.getElementById('order-title').value.trim() || "向宇宙星海致意的美好一刻";
+            const orderFeeling = document.getElementById('order-feeling').value.trim() || "我全然地信任並充滿喜悅地迎接這一切！";
+            
+            const focusInput = document.getElementById('focus-input').value.trim() || "保持愛與和諧的震動頻率";
+            const gratitudeInput = document.getElementById('gratitude-input').value.trim() || "今天醒來即是最棒的美好小事";
+
+            const finalCalculatedLevel = Math.min(1000, currentRitualVibeLevel);
+
+            const newDiaryRecord = {
+                id: 'diary-' + Date.now().toString(),
+                date: dateStr,
+                time: timeStr,
+                vibe: selectedVibeChips.join('、') || "中正和諧",
+                vibeLevel: finalCalculatedLevel, 
+                awareness: awarenessInput,
+                releasedBelief: releaseInput,
+                selectedAffirmations: [...selectedAffirmationChips],
+                customAffirmation: customAffirmation,
+                orderCategory: orderCategory,
+                orderTitle: orderTitle,
+                orderFeeling: orderFeeling,
+                focusIntention: focusInput,
+                gratitude: gratitudeInput,
+                orderStatus: 'Delivered'
+            };
+
+            // Prepend new local record
+            diaries.unshift(newDiaryRecord);
+            saveStateToPersistentDatabase(newDiaryRecord);
+
+            // Accumulate cosmic credits
+            energyPoints += Math.floor(finalCalculatedLevel / 4);
+            document.getElementById('energy-points').innerText = energyPoints + " +";
+
+            triggerSingingBowlChime();
+            showToast("🔮 霍金斯能級訂單已被宇宙完美對接！發送中...", "success");
+            clearManifestationCeremonyForm();
+            
+            setTimeout(() => {
+                switchTab('dashboard');
+            }, 900);
+        }
+
+        function clearManifestationCeremonyForm() {
+            document.getElementById('manifest-form').reset();
+            selectedVibeChips = [];
+            selectedAffirmationChips = [];
+            currentRitualVibeLevel = 250; 
+            
+            document.querySelectorAll('.vibe-chip').forEach(el => {
+                el.className = "vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1";
+            });
+            document.querySelectorAll('.affirm-card').forEach(el => {
+                el.className = "affirm-card glass-card rounded-2xl p-3.5 text-xs text-left cursor-pointer transition-all border border-white/5 hover:border-emerald-500/20 flex justify-between items-center gap-2 text-slate-300";
+                const ind = el.querySelector('.vibe-indicator');
+                if (ind) ind.classList.add('opacity-0');
+            });
+            
+            const relInput = document.getElementById('release-input');
+            delete relInput.dataset.releasedVal;
+            relInput.placeholder = "例如：我擔心自己不夠優秀、我不配擁有輕鬆富足的生活、我害怕別人的眼光...";
+
+            // Clean accumulated list UI
+            const releasedContainer = document.getElementById('released-list-container');
+            if (releasedContainer) releasedContainer.classList.add('hidden');
+            const chips = document.getElementById('released-accumulated-chips');
+            if (chips) chips.innerHTML = '';
+
+            currentStep = 1;
+            changeStep(0); 
+        }
+
+        // ==========================================================
+        // 11. Custom SVG Graphing Trend Line Visualization
+        // ==========================================================
+        function drawTrendAnalysisChart() {
+            const chartG = document.getElementById('chart-line-elements');
+            if (!chartG) return;
+            chartG.innerHTML = '';
+
+            if (diaries.length === 0) return;
+
+            // Chronologically sort data (left-to-right on timeline)
+            const chronologicalData = [...diaries]
+                .reverse()
+                .slice(-10); // Visualize maximum of recent 10 records
+
+            if (chronologicalData.length < 2) {
+                // Not enough items, render static line
+                chartG.innerHTML = `<text x="180" y="80" fill="rgba(255,255,255,0.2)" font-size="11">需要至少累積兩次以上的顯化對焦紀錄以繪製波幅...</text>`;
+                return;
+            }
+
+            const chartWidth = 560;
+            const chartHeight = 140;
+            const paddingLeft = 30;
+            const paddingTop = 10;
+
+            const totalPoints = chronologicalData.length;
+            const stepX = chartWidth / (totalPoints - 1);
+
+            let pointsPathStr = '';
+            let fillPathStr = `M ${paddingLeft} ${chartHeight + paddingTop} `;
+
+            chronologicalData.forEach((d, i) => {
+                const level = d.vibeLevel || 250;
+                // Normalize 0-1000 value scale to match the 140px custom SVG window height
+                const normalizedY = chartHeight - (level / 1000) * chartHeight + paddingTop;
+                const calculatedX = i * stepX + paddingLeft;
+
+                if (i === 0) {
+                    pointsPathStr += `M ${calculatedX} ${normalizedY} `;
+                } else {
+                    pointsPathStr += `L ${calculatedX} ${normalizedY} `;
+                }
+
+                fillPathStr += `L ${calculatedX} ${normalizedY} `;
+
+                // Construct indicator dots
+                const config = getHawkinsMetadata(level);
+                chartG.innerHTML += `
+                    <circle cx="${calculatedX}" cy="${normalizedY}" r="4.5" fill="#f59e0b" stroke="#04030a" stroke-width="2" class="cursor-pointer" onclick="openDiaryDetail('${d.id}')">
+                        <title>能級: ${level} (${config.name})</title>
+                    </circle>
+                `;
+            });
+
+            fillPathStr += `L ${(totalPoints - 1) * stepX + paddingLeft} ${chartHeight + paddingTop} Z`;
+
+            // Prepend transparent neon gradient undercoat
+            const fillPathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            fillPathElement.setAttribute('d', fillPathStr);
+            fillPathElement.setAttribute('fill', 'url(#chart-neon-gradient-color)');
+            fillPathElement.setAttribute('opacity', '0.25');
+
+            // Construct baseline stroke
+            const strokePathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            strokePathElement.setAttribute('d', pointsPathStr);
+            strokePathElement.setAttribute('fill', 'none');
+            strokePathElement.setAttribute('stroke', '#a78bfa');
+            strokePathElement.setAttribute('stroke-width', '2.5');
+
+            // Append gradient definitions
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            defs.innerHTML = `
+                <linearGradient id="chart-neon-gradient-color" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#c084fc"/>
+                    <stop offset="100%" stop-color="#04030a" stop-opacity="0"/>
+                </linearGradient>
+            `;
+
+            chartG.appendChild(defs);
+            chartG.appendChild(fillPathElement);
+            chartG.appendChild(strokePathElement);
+        }
+
+        // ==========================================================
+        // 12. Dynamic UI Component Renders (Dashboard / History)
+        // ==========================================================
+        function updateDashboard() {
+            const gratitudeCount = diaries.reduce((acc, curr) => {
+                if (curr.gratitude) {
+                    const lines = curr.gratitude.split(/[1-3]\./);
+                    return acc + Math.max(1, lines.filter(l => l.trim()).length);
+                }
+                return acc;
+            }, 0);
+            document.getElementById('stat-gratitude').innerText = gratitudeCount + " 件";
+
+            const fulfilledCount = diaries.filter(d => d.orderStatus === 'Fulfilled').length;
+            document.getElementById('stat-fulfilled').innerText = fulfilledCount + " 件";
+
+            let averagedLevel = 250; 
+            if (diaries.length > 0) {
+                const sumOfLevels = diaries.reduce((sum, d) => sum + (d.vibeLevel || 250), 0);
+                averagedLevel = Math.floor(sumOfLevels / diaries.length);
+            }
+            
+            // Incorporate active manifestations weights
+            averagedLevel += (fulfilledCount * 20) + (gratitudeCount * 6);
+            const calculatedFinalLevel = Math.max(20, Math.min(1000, averagedLevel));
+
+            document.getElementById('display-vibe').innerText = calculatedFinalLevel;
+
+            const config = getHawkinsMetadata(calculatedFinalLevel);
+            const orbBody = document.getElementById('orb-body');
+            const glow1 = document.getElementById('orb-glow-layer-1');
+            const glow2 = document.getElementById('orb-glow-layer-2');
+            
+            // Update beautiful liquid gradients and dynamic dropshadow glows
+            orbBody.className = `breathing-orb w-40 h-40 rounded-full bg-gradient-to-br ${config.color} border border-white/10 flex flex-col items-center justify-center relative z-10`;
+            glow1.style.backgroundColor = config.glow.replace(/[\d\.]+\)$/g, '0.45)');
+            glow1.style.boxShadow = `0 0 60px 15px ${config.glow}`;
+            glow2.style.backgroundColor = config.glow.replace(/[\d\.]+\)$/g, '0.25)');
+            glow2.style.boxShadow = `0 0 100px 30px ${config.glow}`;
+
+            // Add dynamic multi-layer text shadow matching the current aura gradient
+            const textShadowColor = config.glow.replace(/[\d\.]+\)$/g, '0.8)');
+            document.getElementById('display-vibe').style.textShadow = `0 0 15px ${textShadowColor}, 0 2px 5px rgba(0,0,0,0.5)`;
+            
+            document.getElementById('display-vibe-title').innerText = `${config.name} 能級`;
+
+            // Update Consciousness Spectrum Indicator
+            const percentage = (calculatedFinalLevel / 1000) * 100;
+            document.getElementById('spectrum-fill-bar').style.width = percentage + "%";
+            document.getElementById('spectrum-indicator-pin').style.left = `calc(${percentage}% - 7px)`;
+
+            const statusTag = document.getElementById('vibe-status-tag');
+            statusTag.innerText = config.name;
+            statusTag.className = `px-3 py-1 rounded-full text-xs font-semibold ${config.bgTag}`;
+
+            let energeticFeedback = "";
+            if (calculatedFinalLevel < 200) {
+                energeticFeedback = "⚠️ 能量處於生存模式的消耗狀態。此能級下顯化往往充滿阻礙。強烈建議前往「冥想室」調諧呼吸，或寫下阻礙進行「神聖釋放」！";
+            } else if (calculatedFinalLevel >= 200 && calculatedFinalLevel < 350) {
+                energeticFeedback = "✅ 恭喜！你已跨越 200 勇氣大關！此能級具有健康正向的行動力，能穩定支持顯化的發生。";
+            } else if (calculatedFinalLevel >= 350 && calculatedFinalLevel < 500) {
+                energeticFeedback = "🌟 意識已對齊「接納與理智」。心胸開闊、心靈阻抗降至極低，實相投影正在加速拼湊！";
+            } else {
+                energeticFeedback = "🔥 意識對齊「無條件的愛與大喜悅」！此時你擁有無與倫比的心靈磁力，所思所想极易在物理世界瞬間顯化！";
+            }
+            document.getElementById('vibe-status-desc').innerText = energeticFeedback;
+
+            if (diaries.length > 0) {
+                const latest = diaries[0];
+                document.getElementById('dash-focus').innerText = latest.focusIntention || "保持和平正向覺知";
+                document.getElementById('dash-gratitude').innerText = latest.gratitude || "深深感激今日降臨的一切美好";
+                document.getElementById('dash-order').innerText = latest.orderTitle || "今日未送出實意向望";
+            } else {
+                document.getElementById('dash-focus').innerText = "尚未設定今日焦點";
+                document.getElementById('dash-gratitude').innerText = "寫下美好小事來滋養高頻狀態";
+                document.getElementById('dash-order').innerText = "尚未向宇宙送出新訂單";
+            }
+        }
+
+        function renderOrderTracker() {
+            const container = document.getElementById('order-tracker-container');
+            const emptyView = document.getElementById('empty-orders-view');
+            
+            // Retrieve only entries with distinct orders
+            const activeDiaries = diaries.filter(d => d.orderTitle);
+
+            if (activeDiaries.length === 0) {
+                container.classList.add('hidden');
+                emptyView.classList.remove('hidden');
+                emptyView.classList.add('flex');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            emptyView.classList.add('hidden');
+            emptyView.classList.remove('flex');
+
+            container.innerHTML = activeDiaries.slice(0, 4).map(diary => {
+                let statusBadge = "";
+                let cardBorder = "";
+                let actionBtn = "";
+
+                if (diary.orderStatus === 'Delivered') {
+                    statusBadge = `<span class="px-2 py-1 rounded-md text-[10px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center gap-1"><i class="fa-solid fa-paper-plane"></i> 宇宙已受理</span>`;
+                    cardBorder = "border-l-blue-500";
+                    actionBtn = `<button onclick="toggleOrderStatus('${diary.id}', event)" class="px-3 py-1 rounded-lg bg-emerald-600/10 hover:bg-emerald-600 border border-emerald-500/20 text-emerald-400 hover:text-white text-[10px] transition-all flex items-center gap-1">確認顯化成功 <i class="fa-solid fa-circle-check"></i></button>`;
+                } else if (diary.orderStatus === 'In Transit') {
+                    statusBadge = `<span class="px-2 py-1 rounded-md text-[10px] font-semibold bg-violet-500/10 text-violet-400 border border-violet-500/20 flex items-center gap-1"><i class="fa-solid fa-truck-ramp-box"></i> 頻率對焦中</span>`;
+                    cardBorder = "border-l-violet-500";
+                    actionBtn = `<button onclick="toggleOrderStatus('${diary.id}', event)" class="px-3 py-1 rounded-lg bg-emerald-600/10 hover:bg-emerald-600 border border-emerald-500/20 text-emerald-400 hover:text-white text-[10px] transition-all flex items-center gap-1">確認顯化成功 <i class="fa-solid fa-circle-check"></i></button>`;
+                } else {
+                    statusBadge = `<span class="px-2 py-1 rounded-md text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1"><i class="fa-solid fa-wand-magic-sparkles"></i> 完美顯化！</span>`;
+                    cardBorder = "border-l-amber-500";
+                    actionBtn = `<span class="text-[10px] text-emerald-400/80 italic flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> 已在物理維度成真</span>`;
+                }
+
+                return `
+                    <div onclick="openDiaryDetail('${diary.id}')" class="glass-card rounded-2xl p-4 border-l-4 ${cardBorder} flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] text-slate-500">${diary.date} • ${diary.orderCategory}</span>
+                                ${statusBadge}
+                            </div>
+                            <h3 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2">${diary.orderTitle}</h3>
+                            <p class="text-[11px] text-slate-400 mt-2 line-clamp-2 italic bg-slate-950/20 p-2 rounded-lg">「${diary.orderFeeling}」</p>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-between items-center border-t border-white/5 pt-3">
+                            <span class="text-[10px] text-violet-400/80"><i class="fa-solid fa-gem"></i> 能級: ${diary.vibeLevel || 250}</span>
+                            ${actionBtn}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderHistoryList(filteredDiaries = null) {
+            const container = document.getElementById('history-timeline');
+            const emptyView = document.getElementById('empty-history-view');
+            const items = filteredDiaries || diaries;
+
+            if (items.length === 0) {
+                container.classList.add('hidden');
+                emptyView.classList.remove('hidden');
+                emptyView.classList.add('flex');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            emptyView.classList.add('hidden');
+            emptyView.classList.remove('flex');
+
+            container.innerHTML = items.map(diary => {
+                let statusBadge = "";
+                if (diary.orderStatus === 'Delivered') {
+                    statusBadge = `<span class="px-2.5 py-1 rounded-full text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20">宇宙受理中</span>`;
+                } else if (diary.orderStatus === 'In Transit') {
+                    statusBadge = `<span class="px-2.5 py-1 rounded-full text-[10px] bg-violet-500/10 text-violet-400 border border-violet-500/20">頻率對焦中</span>`;
+                } else {
+                    statusBadge = `<span class="px-2.5 py-1 rounded-full text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20">已顯化</span>`;
+                }
+
+                const affirmationsHtml = diary.selectedAffirmations && diary.selectedAffirmations.length > 0
+                    ? diary.selectedAffirmations.map(aff => `<span class="inline-block bg-emerald-950/20 border border-emerald-500/10 text-[10px] text-emerald-300 rounded-lg px-2 py-1">${aff}</span>`).join('')
+                    : "";
+
+                const config = getHawkinsMetadata(diary.vibeLevel || 250);
+
+                return `
+                    <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-violet-500/25 transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/5 mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="font-serif text-sm font-bold text-amber-300 tracking-wider">${diary.date}</span>
+                                <span class="text-[10px] text-slate-500">${diary.time}</span>
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-semibold ${config.bgTag}">能級 ${diary.vibeLevel || 250} • ${config.name}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-slate-400">領域：${diary.orderCategory}</span>
+                                ${statusBadge}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                            <!-- Wish and awareness indicators -->
+                            <div class="md:col-span-8 space-y-4">
+                                <div>
+                                    <h4 class="text-xs font-semibold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <i class="fa-solid fa-scroll text-[10px]"></i> 宇宙顯化訂單
+                                    </h4>
+                                    <p class="text-sm font-bold text-slate-200">${diary.orderTitle}</p>
+                                    <p class="text-xs text-slate-400 italic mt-1 bg-slate-950/30 p-2.5 rounded-xl border border-white/5">「${diary.orderFeeling}」</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <i class="fa-solid fa-eye text-[10px]"></i> 霍金斯深度心靈覺察
+                                    </h4>
+                                    <p class="text-xs text-slate-300 leading-relaxed">${diary.awareness || "當下內在祥和，未受紛繁塵念打擾。"}</p>
+                                </div>
+
+                                <div class="flex flex-wrap gap-1.5">
+                                    ${affirmationsHtml}
+                                </div>
+                            </div>
+
+                            <!-- Beautiful small things -->
+                            <div class="md:col-span-4 bg-slate-950/20 p-4 rounded-2xl border border-white/5 flex flex-col justify-between space-y-3">
+                                <div>
+                                    <span class="text-[9px] text-indigo-400 font-bold block uppercase mb-1">🧭 關注焦點</span>
+                                    <p class="text-xs text-slate-300 font-medium">${diary.focusIntention || "未設定"}</p>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] text-emerald-400 font-bold block uppercase mb-1">🌸 美好感恩小事</span>
+                                    <p class="text-xs text-slate-300 font-medium">${diary.gratitude || "無特定感恩事物"}</p>
+                                </div>
+                                <div class="pt-2 border-t border-white/5 flex justify-between items-center">
+                                    <button onclick="openDiaryDetail('${diary.id}')" class="text-[11px] text-amber-300/80 hover:text-amber-300 flex items-center gap-1 transition-all">
+                                        詳細意識能級印記 <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterHistory() {
+            const query = document.getElementById('search-history').value.toLowerCase().trim();
+            const category = document.getElementById('filter-category').value;
+
+            const filtered = diaries.filter(d => {
+                const matchesQuery = !query || 
+                    d.orderTitle.toLowerCase().includes(query) || 
+                    d.awareness.toLowerCase().includes(query) ||
+                    (d.customAffirmation && d.customAffirmation.toLowerCase().includes(query)) ||
+                    d.gratitude.toLowerCase().includes(query);
+                
+                const matchesCategory = category === 'all' || d.orderCategory === category;
+
+                return matchesQuery && matchesCategory;
+            });
+
+            renderHistoryList(filtered);
+        }
+
+        // ==========================================================
+        // 13. Dynamic Modal Control Nodes & Status Updates
+        // ==========================================================
+        function openDiaryDetail(id) {
+            currentlySelectedDiaryId = id;
+            const diary = diaries.find(d => d.id === id);
+            if (!diary) return;
+
+            document.getElementById('modal-date').innerText = `${diary.date} • ${diary.time}`;
+            
+            const catBadge = document.getElementById('modal-category-badge');
+            catBadge.innerText = diary.orderCategory;
+            catBadge.className = `px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider ${getCategoryColorClass(diary.orderCategory)}`;
+
+            const statusEl = document.getElementById('modal-order-status');
+            const toggleBtn = document.getElementById('modal-toggle-status-btn');
+            statusEl.innerText = getStatusName(diary.orderStatus);
+            statusEl.className = `text-[10px] px-2 py-0.5 rounded-md font-medium ${getStatusColorClass(diary.orderStatus)}`;
+
+            if (diary.orderStatus === 'Fulfilled') {
+                toggleBtn.innerText = "變更為「對焦中」";
+                toggleBtn.className = "px-4 py-2 rounded-xl bg-violet-600/20 border border-violet-500/20 text-violet-300 hover:bg-violet-600 hover:text-white text-xs transition-all";
+            } else {
+                toggleBtn.innerText = "確認此訂單已完美顯化 ✨";
+                toggleBtn.className = "px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-indigo-600 border border-emerald-500/20 text-white hover:opacity-90 text-xs transition-all";
+            }
+
+            document.getElementById('modal-order-title').innerText = diary.orderTitle;
+            document.getElementById('modal-order-feeling').innerText = `【高維顯化感受】: 「${diary.orderFeeling}」`;
+            document.getElementById('modal-focus').innerText = diary.focusIntention || "無特定設定";
+            document.getElementById('modal-gratitude').innerText = diary.gratitude || "無特定紀錄";
+            
+            const config = getHawkinsMetadata(diary.vibeLevel || 250);
+            document.getElementById('modal-awareness').innerText = `【霍金斯能級 ${diary.vibeLevel || 250} - ${config.name}】: ${diary.awareness || "當日思緒和平，能量純淨。"}`;
+            document.getElementById('modal-released').innerText = diary.releasedBelief || "當天無執著之限制性心靈障礙。";
+
+            const affContainer = document.getElementById('modal-affirmations');
+            affContainer.innerHTML = "";
+            if (diary.selectedAffirmations && diary.selectedAffirmations.length > 0) {
+                diary.selectedAffirmations.forEach(aff => {
+                    const li = document.createElement('li');
+                    li.innerText = aff;
+                    affContainer.appendChild(li);
+                });
+            }
+            if (diary.customAffirmation) {
+                const li = document.createElement('li');
+                li.innerText = `${diary.customAffirmation} (自訂靈魂宣告)`;
+                li.className = "text-emerald-300 font-medium";
+                affContainer.appendChild(li);
+            }
+            if (affContainer.children.length === 0) {
+                affContainer.innerHTML = `<span class="text-slate-500 italic">當天未注入特定宣告肯定句</span>`;
+            }
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            currentlySelectedDiaryId = null;
+        }
+
+        function toggleOrderStatus(id, event) {
+            if (event) event.stopPropagation(); 
+            
+            const diary = diaries.find(d => d.id === id);
+            if (!diary) return;
+
+            if (diary.orderStatus === 'Fulfilled') {
+                diary.vibeLevel = Math.max(200, (diary.vibeLevel || 250) - 40); // Soft vibration adjust
+                diary.orderStatus = 'In Transit';
+                showToast("訂單已切換回實相重組對焦中", "info");
+            } else {
+                diary.vibeLevel = Math.min(1000, (diary.vibeLevel || 250) + 60); // High vibration celebration bonus!
+                diary.orderStatus = 'Fulfilled';
+                triggerSingingBowlChime();
+                showToast("🎉 太棒了！喜悅慶祝！您已成功在三次元物理維度顯化此心望！", "success");
+            }
+            
+            saveStateToPersistentDatabase(null, null, diary);
+            
+            if (currentlySelectedDiaryId === id) {
+                openDiaryDetail(id); 
+            }
+        }
+
+        document.getElementById('modal-toggle-status-btn').addEventListener('click', () => {
+            if (currentlySelectedDiaryId) {
+                toggleOrderStatus(currentlySelectedDiaryId);
+            }
+        });
+
+        // Replacing dangerous confirm alert with beautiful dynamic modal (Strict Sandbox Shielded)
+        function setupCustomConfirmDialog() {
+            const dialog = document.getElementById('confirm-dialog');
+            const cancelBtn = document.getElementById('confirm-cancel-btn');
+            const okBtn = document.getElementById('confirm-ok-btn');
+
+            cancelBtn.onclick = () => {
+                dialog.classList.add('hidden');
+            };
+
+            okBtn.onclick = () => {
+                dialog.classList.add('hidden');
+                if (confirmOKCallback) confirmOKCallback();
+            };
+        }
+
+        function showConfirmModal(title, description, onConfirm) {
+            document.getElementById('confirm-title').innerHTML = `<i class="fa-solid fa-circle-question text-rose-400"></i> ${title}`;
+            document.getElementById('confirm-desc').innerText = description;
+            confirmOKCallback = onConfirm;
+
+            document.getElementById('confirm-dialog').classList.remove('hidden');
+        }
+
+        function requestDeleteDiary() {
+            if (!currentlySelectedDiaryId) return;
+
+            showConfirmModal(
+                "確認要從時空中抹除此條意識能級日記嗎？",
+                "這項能級印記與對焦訂單將回歸太虛塵埃，此操作無法在三次元物理世界中復原。",
+                () => {
+                    const targetId = currentlySelectedDiaryId;
+                    diaries = diaries.filter(d => d.id !== targetId);
+                    
+                    saveStateToPersistentDatabase(null, targetId);
+                    closeModal();
+                    showToast("已將意識印記交還虛無，能量歸零", "info");
+                }
+            );
+        }
+
+        function getCategoryColorClass(cat) {
+            switch(cat) {
+                case '財富豐盛': return 'bg-yellow-500/10 text-yellow-300 border border-yellow-500/20';
+                case '親密愛戀': return 'bg-pink-500/10 text-pink-300 border border-pink-500/20';
+                case '事業成就': return 'bg-violet-500/10 text-violet-300 border border-violet-500/20';
+                case '身心健康': return 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20';
+                default: return 'bg-blue-500/10 text-blue-300 border border-blue-500/20';
+            }
+        }
+
+        function getStatusName(status) {
+            if (status === 'Delivered') return '📬 宇宙已受理';
+            if (status === 'In Transit') return '🌌 頻率對焦中';
+            return '✨ 已完美成真';
+        }
+
+        function getStatusColorClass(status) {
+            if (status === 'Delivered') return 'bg-blue-500/10 text-blue-300';
+            if (status === 'In Transit') return 'bg-violet-500/10 text-violet-300';
+            return 'bg-emerald-500/10 text-emerald-300';
+        }
+
+        // ==========================================================
+        // 14. Solfeggio Breath Chamber Meditation Mechanics (Tab 4)
+        // ==========================================================
+        function toggleMeditation() {
+            const btn = document.getElementById('btn-meditation-toggle');
+            const outerCircle = document.getElementById('meditation-circle-outer');
+            const innerCircle = document.getElementById('meditation-circle');
+            const text = document.getElementById('meditation-text');
+
+            if (isMeditating) {
+                clearInterval(breathInterval);
+                isMeditating = false;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> 開始對焦呼吸`;
+                btn.className = "px-6 py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-600 hover:text-white text-xs font-semibold shadow-lg transition-all flex items-center gap-2";
+                text.innerText = "點擊開始";
+                
+                outerCircle.style.transform = 'scale(1)';
+                innerCircle.style.transform = 'scale(1)';
+                
+                stopSolfeggioTone();
+                showToast("深呼吸調和對焦結束。帶領這份純淨和平去改造物質實相吧！", "info");
+            } else {
+                isMeditating = true;
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> 暫停調諧`;
+                btn.className = "px-6 py-2.5 rounded-xl bg-amber-600/20 border border-amber-500/30 text-amber-300 hover:bg-amber-600 hover:text-white text-xs font-semibold shadow-lg transition-all flex items-center gap-2";
+                
+                // Continuous clean cosmic wave
+                playSolfeggioTone(selectedFreq);
+
+                let cycleState = 0; // 0: Inhale, 1: Hold, 2: Exhale
+                
+                const performBreathingCycle = () => {
+                    if (!isMeditating) return;
+
+                    if (cycleState === 0) {
+                        text.innerText = "吸入宇宙光能...";
+                        text.className = "text-sm font-semibold text-emerald-300 tracking-wider animate-pulse";
+                        outerCircle.style.transform = 'scale(1.22)';
+                        innerCircle.style.transform = 'scale(1.3)';
+                        innerCircle.style.backgroundColor = 'rgba(16, 185, 129, 0.25)';
+                        cycleState = 1;
+                    } else if (cycleState === 1) {
+                        text.innerText = "屏息匯聚心輪...";
+                        text.className = "text-sm font-semibold text-amber-300 tracking-wider animate-pulse";
+                        cycleState = 2;
+                    } else {
+                        text.innerText = "釋放過往塵念...";
+                        text.className = "text-sm font-semibold text-violet-300 tracking-wider animate-pulse";
+                        outerCircle.style.transform = 'scale(1)';
+                        innerCircle.style.transform = 'scale(1)';
+                        innerCircle.style.backgroundColor = 'rgba(139, 92, 246, 0.25)';
+                        
+                        breathCount++;
+                        energyPoints += 15; // Higher rewards for solfeggio alignment
+                        document.getElementById('breath-count').innerText = breathCount;
+                        document.getElementById('energy-points').innerText = energyPoints + " +";
+                        
+                        triggerSingingBowlChime();
+                        cycleState = 0;
+                    }
+                };
+
+                performBreathingCycle(); 
+                breathInterval = setInterval(performBreathingCycle, 4000); 
+            }
+        }
+
+        function resetMeditation() {
+            if (isMeditating) toggleMeditation();
+            breathCount = 0;
+            document.getElementById('breath-count').innerText = "0";
+            showToast("已重置今日調和次數，能量歸零重新聚焦", "info");
+        }
+
+        // ==========================================================
+        // 15. UI Helpers (Toasts & Cosmic Wisdom Switch)
+        // ==========================================================
+        function generateCosmicQuote() {
+            const idx = Math.floor(Math.random() * COSMIC_QUOTES.length);
+            const quote = COSMIC_QUOTES[idx];
+            document.getElementById('cosmic-quote').innerText = quote.text;
+            document.getElementById('cosmic-author').innerText = `—— ${quote.author}`;
+        }
+
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.innerText = message;
+
+            if (type === "success") {
+                iconEl.className = "w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs";
+                iconEl.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+            } else if (type === "warning") {
+                iconEl.className = "w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs";
+                iconEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+            } else {
+                iconEl.className = "w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs";
+                iconEl.innerHTML = `<i class="fa-solid fa-info"></i>`;
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
