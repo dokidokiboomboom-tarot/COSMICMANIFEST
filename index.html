@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星願顯化日記系統 - 大衛霍金斯意識能量對焦空間</title>
+    <title>Cosmic Manifest v2.1｜保留資料升級版</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -610,6 +610,16 @@
                             <option value="身心健康">🍀 身心健康</option>
                             <option value="靈性成長">🌌 靈性成長</option>
                         </select>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <button onclick="exportCosmicBackup()" class="px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-slate-950 text-xs font-semibold transition-all">
+                                <i class="fa-solid fa-download"></i> 匯出備份
+                            </button>
+                            <button onclick="document.getElementById('cosmic-import-file').click()" class="px-3 py-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-300 hover:bg-violet-500 hover:text-white text-xs font-semibold transition-all">
+                                <i class="fa-solid fa-upload"></i> 匯入備份
+                            </button>
+                        </div>
+                        <input id="cosmic-import-file" type="file" accept=".json,application/json" class="hidden" onchange="importCosmicBackup(event)">
+                        <p class="text-[10px] text-slate-500 leading-relaxed">保留原本 localStorage 資料鍵：hawkins_cosmic_diaries_v2。請先匯出備份，再做雲端同步。</p>
                     </div>
                 </div>
             </div>
@@ -770,6 +780,7 @@
 
             <!-- Footer Action buttons -->
             <div class="p-4 bg-slate-950/40 border-t border-white/5 flex justify-end gap-2">
+                <button onclick="editCurrentDiaryFromModal()" class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-slate-950 text-xs font-semibold transition-all">編輯此紀錄</button>
                 <button id="modal-toggle-status-btn" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all"></button>
                 <button onclick="requestDeleteDiary()" class="px-4 py-2 rounded-xl bg-rose-600/10 border border-rose-500/15 text-rose-400 hover:bg-rose-600 hover:text-white text-xs transition-all">刪除此紀錄</button>
             </div>
@@ -900,6 +911,7 @@
         let selectedVibeChips = [];
         let selectedAffirmationChips = [];
         let currentlySelectedDiaryId = null;
+        let editingDiaryId = null;
         let currentRitualVibeLevel = 250; 
 
         // Breathing Mediation Variables
@@ -1529,7 +1541,7 @@
             }
 
             if (currentStep === totalSteps) {
-                nextBtn.innerHTML = `送出顯化訂單 <i class="fa-solid fa-paper-plane text-xs"></i>`;
+                nextBtn.innerHTML = editingDiaryId ? `儲存修改 <i class="fa-solid fa-floppy-disk text-xs"></i>` : `送出顯化訂單 <i class="fa-solid fa-paper-plane text-xs"></i>`;
                 nextBtn.className = "px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 text-xs font-bold shadow-lg shadow-amber-500/15 transition-all flex items-center gap-1.5";
             } else {
                 nextBtn.innerHTML = `下一步 <i class="fa-solid fa-arrow-right"></i>`;
@@ -1559,7 +1571,7 @@
             const timeStr = new Date().toTimeString().split(' ')[0].substring(0, 5);
             
             const awarenessInput = document.getElementById('awareness-input').value.trim();
-            const releaseInput = document.getElementById('release-input').dataset.releasedVal || "";
+            const releaseInput = document.getElementById('release-input').dataset.releasedVal || document.getElementById('release-input').value.trim() || "";
             const customAffirmation = document.getElementById('custom-affirmation').value.trim();
             
             const orderCategory = document.getElementById('order-category').value;
@@ -1572,9 +1584,9 @@
             const finalCalculatedLevel = Math.min(1000, currentRitualVibeLevel);
 
             const newDiaryRecord = {
-                id: 'diary-' + Date.now().toString(),
-                date: dateStr,
-                time: timeStr,
+                id: editingDiaryId || 'diary-' + Date.now().toString(),
+                date: editingDiaryId ? (diaries.find(d => d.id === editingDiaryId)?.date || dateStr) : dateStr,
+                time: editingDiaryId ? (diaries.find(d => d.id === editingDiaryId)?.time || timeStr) : timeStr,
                 vibe: selectedVibeChips.join('、') || "中正和諧",
                 vibeLevel: finalCalculatedLevel, 
                 awareness: awarenessInput,
@@ -1586,19 +1598,26 @@
                 orderFeeling: orderFeeling,
                 focusIntention: focusInput,
                 gratitude: gratitudeInput,
-                orderStatus: 'Delivered'
+                orderStatus: editingDiaryId ? (diaries.find(d => d.id === editingDiaryId)?.orderStatus || 'Delivered') : 'Delivered',
+                updatedAt: new Date().toISOString()
             };
 
-            // Prepend new local record
-            diaries.unshift(newDiaryRecord);
-            saveStateToPersistentDatabase(newDiaryRecord);
+            // Create or update local/cloud record while preserving existing data
+            if (editingDiaryId) {
+                const idx = diaries.findIndex(d => d.id === editingDiaryId);
+                if (idx >= 0) diaries[idx] = newDiaryRecord;
+                saveStateToPersistentDatabase(null, null, newDiaryRecord);
+            } else {
+                diaries.unshift(newDiaryRecord);
+                saveStateToPersistentDatabase(newDiaryRecord);
+            }
 
             // Accumulate cosmic credits
             energyPoints += Math.floor(finalCalculatedLevel / 4);
             document.getElementById('energy-points').innerText = energyPoints + " +";
 
             triggerSingingBowlChime();
-            showToast("🔮 霍金斯能級訂單已被宇宙完美對接！發送中...", "success");
+            showToast(editingDiaryId ? "✏️ 已儲存修改，原本訂單內容已保留更新" : "🔮 霍金斯能級訂單已被宇宙完美對接！發送中...", "success");
             clearManifestationCeremonyForm();
             
             setTimeout(() => {
@@ -1631,6 +1650,7 @@
             const chips = document.getElementById('released-accumulated-chips');
             if (chips) chips.innerHTML = '';
 
+            editingDiaryId = null;
             currentStep = 1;
             changeStep(0); 
         }
@@ -1935,9 +1955,14 @@
                                     <p class="text-xs text-slate-300 font-medium">${diary.gratitude || "無特定感恩事物"}</p>
                                 </div>
                                 <div class="pt-2 border-t border-white/5 flex justify-between items-center">
-                                    <button onclick="openDiaryDetail('${diary.id}')" class="text-[11px] text-amber-300/80 hover:text-amber-300 flex items-center gap-1 transition-all">
-                                        詳細意識能級印記 <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                                    </button>
+                                    <div class="flex items-center gap-3">
+                                        <button onclick="editDiaryRecord('${diary.id}', event)" class="text-[11px] text-violet-300/80 hover:text-violet-200 flex items-center gap-1 transition-all">
+                                            <i class="fa-solid fa-pen-to-square text-[9px]"></i> 編輯
+                                        </button>
+                                        <button onclick="openDiaryDetail('${diary.id}')" class="text-[11px] text-amber-300/80 hover:text-amber-300 flex items-center gap-1 transition-all">
+                                            詳細意識能級印記 <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1952,10 +1977,12 @@
 
             const filtered = diaries.filter(d => {
                 const matchesQuery = !query || 
-                    d.orderTitle.toLowerCase().includes(query) || 
-                    d.awareness.toLowerCase().includes(query) ||
-                    (d.customAffirmation && d.customAffirmation.toLowerCase().includes(query)) ||
-                    d.gratitude.toLowerCase().includes(query);
+                    (d.orderTitle || '').toLowerCase().includes(query) || 
+                    (d.awareness || '').toLowerCase().includes(query) ||
+                    (d.customAffirmation || '').toLowerCase().includes(query) ||
+                    (d.gratitude || '').toLowerCase().includes(query) ||
+                    (d.releasedBelief || '').toLowerCase().includes(query) ||
+                    (d.orderFeeling || '').toLowerCase().includes(query);
                 
                 const matchesCategory = category === 'all' || d.orderCategory === category;
 
@@ -2082,7 +2109,141 @@
             document.getElementById('confirm-dialog').classList.remove('hidden');
         }
 
-        function requestDeleteDiary() {
+        
+        // ==========================================================
+        // 13.5 Data Preservation, Backup, Import, and Editing Tools
+        // ==========================================================
+        function exportCosmicBackup() {
+            const payload = {
+                app: "Cosmic Manifest",
+                version: "2.1-local-backup",
+                exportedAt: new Date().toISOString(),
+                storageKey: "hawkins_cosmic_diaries_v2",
+                diaries: diaries
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `cosmic-manifest-backup-${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("已匯出本機備份 JSON，原本訂單安全裝箱", "success");
+        }
+
+        function importCosmicBackup(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const parsed = JSON.parse(reader.result);
+                    const imported = Array.isArray(parsed) ? parsed : parsed.diaries;
+                    if (!Array.isArray(imported)) throw new Error('找不到 diaries 陣列');
+                    showConfirmModal(
+                        "確認要匯入備份嗎？",
+                        `將以備份中的 ${imported.length} 筆紀錄覆蓋目前本機紀錄。建議匯入前先匯出一次目前資料。`,
+                        () => {
+                            diaries = imported.map(d => ({ ...d, id: d.id || ('diary-' + Date.now() + '-' + Math.random().toString(16).slice(2)) }));
+                            localStorage.setItem('hawkins_cosmic_diaries_v2', JSON.stringify(diaries));
+                            updateUIRenderingAndCalculations();
+                            showToast("備份已匯入，宇宙訂單回家了", "success");
+                        }
+                    );
+                } catch (err) {
+                    console.error(err);
+                    showToast("匯入失敗，請確認 JSON 備份格式", "warning");
+                } finally {
+                    event.target.value = '';
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function setInputValue(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.value = value || '';
+        }
+
+        function resetStepPanelsToFirst() {
+            currentStep = 1;
+            document.querySelectorAll('.step-panel').forEach((el, index) => {
+                if (index === 0) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+            const prevBtn = document.getElementById('btn-prev-step');
+            const nextBtn = document.getElementById('btn-next-step');
+            if (prevBtn) prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            if (nextBtn) nextBtn.innerHTML = `下一步 <i class="fa-solid fa-arrow-right"></i>`;
+            for (let i = 1; i <= totalSteps; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (!dot) continue;
+                dot.innerHTML = i;
+                dot.className = i === 1
+                    ? "step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-violet-600 text-white"
+                    : "step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-slate-900 text-slate-400 border border-white/5";
+            }
+        }
+
+        function editDiaryRecord(id, event = null) {
+            if (event) event.stopPropagation();
+            const diary = diaries.find(d => d.id === id);
+            if (!diary) {
+                showToast("找不到這筆紀錄，可能已被刪除", "warning");
+                return;
+            }
+            editingDiaryId = id;
+            selectedVibeChips = diary.vibe ? diary.vibe.split('、').filter(Boolean) : [];
+            selectedAffirmationChips = Array.isArray(diary.selectedAffirmations) ? [...diary.selectedAffirmations] : [];
+            currentRitualVibeLevel = diary.vibeLevel || 250;
+
+            setInputValue('awareness-input', diary.awareness || '');
+            const releaseEl = document.getElementById('release-input');
+            if (releaseEl) {
+                releaseEl.value = diary.releasedBelief || '';
+                releaseEl.dataset.releasedVal = diary.releasedBelief || '';
+            }
+            setInputValue('custom-affirmation', diary.customAffirmation || '');
+            setInputValue('order-category', diary.orderCategory || '財富豐盛');
+            setInputValue('order-title', diary.orderTitle || '');
+            setInputValue('order-feeling', diary.orderFeeling || '');
+            setInputValue('focus-input', diary.focusIntention || '');
+            setInputValue('gratitude-input', diary.gratitude || '');
+
+            document.querySelectorAll('.vibe-chip').forEach(el => {
+                const selected = selectedVibeChips.some(v => el.innerText.includes(v.replace('平靜和諧','平靜')) || el.innerText.includes(v.replace('喜悅豐盛','愛與豐盛')) || el.innerText.includes(v));
+                if (selected) {
+                    el.classList.remove('border-white/5', 'bg-slate-950/20', 'text-slate-400');
+                    el.classList.add('border-violet-500', 'bg-violet-600/20', 'text-violet-300');
+                } else {
+                    el.className = "vibe-chip px-3 py-2.5 rounded-xl text-xs border border-white/5 bg-slate-950/20 text-slate-400 hover:border-violet-500/30 transition-all flex flex-col items-center justify-center gap-1";
+                }
+            });
+            document.querySelectorAll('.affirm-card').forEach(el => {
+                const text = el.innerText.trim();
+                const selected = selectedAffirmationChips.some(a => text.includes(a.replace(/\s*\([^)]*\)$/, '').trim()) || a.includes(text.replace('✓','').trim()));
+                const ind = el.querySelector('.vibe-indicator');
+                if (selected) {
+                    el.classList.remove('border-white/5', 'text-slate-300');
+                    el.classList.add('border-emerald-500/50', 'bg-emerald-500/10', 'text-white');
+                    if (ind) ind.classList.remove('opacity-0');
+                } else {
+                    el.className = "affirm-card glass-card rounded-2xl p-3.5 text-xs text-left cursor-pointer transition-all border border-white/5 hover:border-emerald-500/20 flex justify-between items-center gap-2 text-slate-300";
+                    if (ind) ind.classList.add('opacity-0');
+                }
+            });
+
+            resetStepPanelsToFirst();
+            closeModal();
+            switchTab('journal');
+            showToast("已載入舊紀錄，可直接修改後儲存", "success");
+        }
+
+        function editCurrentDiaryFromModal() {
+            if (currentlySelectedDiaryId) editDiaryRecord(currentlySelectedDiaryId);
+        }
+
+function requestDeleteDiary() {
             if (!currentlySelectedDiaryId) return;
 
             showConfirmModal(
